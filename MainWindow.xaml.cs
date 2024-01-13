@@ -31,6 +31,18 @@ namespace NetworkMegaConfigurator
       InitializeComponent();
 
       GetNetworkAdapters();
+
+      stackRecentActions.Children.Clear();
+
+      foreach (var item in _adapters)
+      {
+        var quickAction = new QuickAction
+        {
+          Adapter = item
+        };
+
+        stackRecentActions.Children.Add(quickAction);
+      }
     }
 
     void GetNetworkAdapters()
@@ -59,9 +71,32 @@ namespace NetworkMegaConfigurator
       Debug.WriteLine(args);
       Process process = new();
       process.StartInfo = new ProcessStartInfo("netsh", args);
-      process.StartInfo.UseShellExecute = true;
-      process.StartInfo.Verb = "runas";
+      process.StartInfo.CreateNoWindow = true;
       process.Start();
+
+      process.WaitForExit();
+    }
+
+    private void TopBarMouseDown(object sender, MouseButtonEventArgs e)
+    {
+      if (e.LeftButton == MouseButtonState.Pressed)
+      {
+        DragMove();
+      }
+    }
+
+    private void btnClose_Click(object sender, RoutedEventArgs e)
+    {
+      this.Close();
+    }
+
+    private void OnRecentActionMouseWheel(object sender, MouseWheelEventArgs e)
+    {
+      var scrollViewer = (ScrollViewer)sender;
+      if (scrollViewer == null) return;
+
+      scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset - e.Delta);
+      e.Handled = true;
     }
   }
 }

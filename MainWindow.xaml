@@ -4,12 +4,63 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NetworkMegaConfigurator"
+        xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-  <Grid>
-    <ListBox x:Name="AdapterList" HorizontalAlignment="Left" Height="270" Margin="45,29,0,0" VerticalAlignment="Top" Width="283" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="OnSelectionChange"/>
-    <Button x:Name="btnSetStatic" Content="Set Static" HorizontalAlignment="Center" Height="35" Margin="0,43,0,0" VerticalAlignment="Top" Width="84" Click="btnSetStatic_Click"/>
-    <Button x:Name="btnSetDhcp" Content="Set DHCP" HorizontalAlignment="Center" Height="35" Margin="0,98,0,0" VerticalAlignment="Top" Width="84" Click="btnSetDhcp_Click"/>
+        Title="MainWindow" Width="600" Height="800" FontFamily="Bahnschrift" WindowStyle="None" Background="{x:Null}" AllowsTransparency="True" Foreground="{x:Null}">
 
-  </Grid>
+
+  <Border CornerRadius="8" Background="#121212">
+    <Border.Clip>
+      <RectangleGeometry RadiusX="8" RadiusY="8"
+                         Rect="0,0,600,800"/>
+    </Border.Clip>
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="50"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="50"/>
+      </Grid.RowDefinitions>
+
+      <Rectangle Fill="#0A0A0A"
+                 MouseDown="TopBarMouseDown"/>
+      <Label Content="Network Mega-Configurator" 
+             IsHitTestVisible="False"
+             HorizontalAlignment="Left" Margin="20,0,0,0" Width="400" Foreground="#CCFFFFFF" FontSize="24" AutomationProperties.HelpText="What's this?" VerticalContentAlignment="Center"/>
+      <Button x:Name="btnClose" 
+              HorizontalAlignment="Right"
+              Content="{materialIcons:MaterialIconExt Kind=Close}" 
+              Background="{x:Null}" 
+              Foreground="#CCFFFFFF" 
+              BorderBrush="{x:Null}"
+              Click="btnClose_Click">
+      </Button>
+
+      <StackPanel Orientation="Vertical"
+                  Grid.Row="1"
+                  Margin="20,20,20,20">
+        <Label Content="Recent actions" HorizontalAlignment="Left" Width="400" Foreground="#7EFFFFFF" FontSize="24" AutomationProperties.HelpText="What's this?" VerticalContentAlignment="Center" Grid.Row="1" RenderTransformOrigin="0.24,0.464" VerticalAlignment="Top" Margin="0,20,0,0"/>
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled"
+                    PreviewMouseWheel="OnRecentActionMouseWheel">
+          <StackPanel x:Name="stackRecentActions" Orientation="Horizontal">
+            <local:QuickAction></local:QuickAction>
+            <local:QuickAction></local:QuickAction>
+            <local:QuickAction></local:QuickAction>
+            <local:QuickAction></local:QuickAction>
+            <local:QuickAction></local:QuickAction>
+          </StackPanel>
+        </ScrollViewer>
+        <Label Content="Adapters" Width="400" Foreground="#7EFFFFFF" FontSize="24" AutomationProperties.HelpText="What's this?" VerticalContentAlignment="Center" RenderTransformOrigin="0.24,0.464" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,20,0,0"/>
+
+      </StackPanel>
+
+      <ListBox x:Name="AdapterList" 
+               Grid.Row="1" HorizontalAlignment="Left" Height="270" Margin="274,309,0,0" VerticalAlignment="Top" Width="283">
+        <ListBox Height="100" Width="100" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+      </ListBox>
+      <Button x:Name="btnSetStatic" Grid.Row="1" Content="Set Static" HorizontalAlignment="Left" Height="35" Margin="300,621,0,0" VerticalAlignment="Top" Width="84" Click="btnSetStatic_Click"/>
+      <Button x:Name="btnSetDhcp" Grid.Row="1" Content="Set DHCP" HorizontalAlignment="Left" Height="35" Margin="102,625,0,0" VerticalAlignment="Top" Width="84" Click="btnSetDhcp_Click"/>
+
+      <Rectangle Fill="#0A0A0A" Grid.Row="2"/>
+    </Grid>
+  </Border>
 </Window>
