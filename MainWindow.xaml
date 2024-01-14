@@ -4,8 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NetworkMegaConfigurator"
+        xmlns:components="clr-namespace:NetworkMegaConfigurator.Components"
         xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
+        Name="MyMainWindow"
         Title="MainWindow" Width="600" Height="800" FontFamily="Bahnschrift" WindowStyle="None" Background="{x:Null}" AllowsTransparency="True" Foreground="{x:Null}">
 
 
@@ -35,30 +38,60 @@
               Click="btnClose_Click">
       </Button>
 
-      <StackPanel Orientation="Vertical"
-                  Grid.Row="1"
+      <Grid Grid.Row="1"
                   Margin="20,20,20,20">
-        <Label Content="Recent actions" HorizontalAlignment="Left" Width="400" Foreground="#7EFFFFFF" FontSize="24" AutomationProperties.HelpText="What's this?" VerticalContentAlignment="Center" Grid.Row="1" RenderTransformOrigin="0.24,0.464" VerticalAlignment="Top" Margin="0,20,0,0"/>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Label Content="Recent actions" HorizontalAlignment="Left" Width="400" Foreground="#7EFFFFFF" FontSize="24" VerticalContentAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0"/>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled"
                     PreviewMouseWheel="OnRecentActionMouseWheel">
           <StackPanel x:Name="stackRecentActions" Orientation="Horizontal">
-            <local:QuickAction></local:QuickAction>
-            <local:QuickAction></local:QuickAction>
-            <local:QuickAction></local:QuickAction>
-            <local:QuickAction></local:QuickAction>
-            <local:QuickAction></local:QuickAction>
+            <components:QuickAction/>
+            <components:QuickAction/>
+            <components:QuickAction/>
+            <components:QuickAction/>
           </StackPanel>
         </ScrollViewer>
-        <Label Content="Adapters" Width="400" Foreground="#7EFFFFFF" FontSize="24" AutomationProperties.HelpText="What's this?" VerticalContentAlignment="Center" RenderTransformOrigin="0.24,0.464" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,20,0,0"/>
 
-      </StackPanel>
+        <Grid Grid.Row="2">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
 
-      <ListBox x:Name="AdapterList" 
-               Grid.Row="1" HorizontalAlignment="Left" Height="270" Margin="274,309,0,0" VerticalAlignment="Top" Width="283">
-        <ListBox Height="100" Width="100" d:ItemsSource="{d:SampleData ItemCount=5}"/>
-      </ListBox>
-      <Button x:Name="btnSetStatic" Grid.Row="1" Content="Set Static" HorizontalAlignment="Left" Height="35" Margin="300,621,0,0" VerticalAlignment="Top" Width="84" Click="btnSetStatic_Click"/>
-      <Button x:Name="btnSetDhcp" Grid.Row="1" Content="Set DHCP" HorizontalAlignment="Left" Height="35" Margin="102,625,0,0" VerticalAlignment="Top" Width="84" Click="btnSetDhcp_Click"/>
+          <Label Content="Adapters" Foreground="#7EFFFFFF" FontSize="24" 
+                     VerticalContentAlignment="Bottom"
+                     Margin="0,20,0,0"/>
+          <materialIcons:MaterialIcon 
+            Grid.Column="1"
+            Kind="Autorenew"
+            Foreground="#77FFFFFF"
+            Width="32"
+            VerticalAlignment="Bottom"
+            MouseDown="OnAdapterListRenew"/>
+        </Grid>
+        <ScrollViewer 
+Grid.Row="3" 
+HorizontalScrollBarVisibility="Disabled" 
+          VerticalScrollBarVisibility="Hidden">
+          <ItemsControl 
+            ItemsSource="{Binding NetworkInterfaces, ElementName=MyMainWindow}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <components:AdapterButton
+                  AdapterName="{Binding Name}"
+                  AdapterDescription="{Binding Description}"
+                  AdapterConfig="{Binding Config}"/>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
+      </Grid>
 
       <Rectangle Fill="#0A0A0A" Grid.Row="2"/>
     </Grid>

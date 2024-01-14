@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net.NetworkInformation;
 using System.Diagnostics;
+using NetworkMegaConfigurator.Components;
+using System.Collections.ObjectModel;
 
 namespace NetworkMegaConfigurator
 {
@@ -22,48 +24,48 @@ namespace NetworkMegaConfigurator
   /// </summary>
   public partial class MainWindow : Window
   {
-    public string SelectedAdapter => _adapters[AdapterList.SelectedIndex].Name;
+    public ObservableCollection<InterfaceProps> NetworkInterfaces
+    {
+      get { return (ObservableCollection<InterfaceProps>)GetValue(NetworkInterfacesProperty); }
+      set { SetValue(NetworkInterfacesProperty, value); }
+    }
 
-    List<NetworkInterface> _adapters = new();
+    // Using a DependencyProperty as the backing store for NetworkInterfaces.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty NetworkInterfacesProperty =
+        DependencyProperty.Register(
+          nameof(NetworkInterfaces),
+          typeof(ObservableCollection<InterfaceProps>),
+          typeof(MainWindow),
+          new PropertyMetadata(new ObservableCollection<InterfaceProps>()));
 
     public MainWindow()
     {
       InitializeComponent();
 
       GetNetworkAdapters();
-
-      stackRecentActions.Children.Clear();
-
-      foreach (var item in _adapters)
-      {
-        var quickAction = new QuickAction
-        {
-          Adapter = item
-        };
-
-        stackRecentActions.Children.Add(quickAction);
-      }
     }
 
     void GetNetworkAdapters()
     {
-      _adapters = NetworkInterface.GetAllNetworkInterfaces().ToList();
-      foreach (var adapter in _adapters)
+      NetworkInterfaces.Clear();
+
+      var interfaces = NetworkInterface.GetAllNetworkInterfaces().ToList();
+      foreach (var adapter in interfaces)
       {
-        AdapterList.Items.Add($"{adapter.Name} - {adapter.Description}");
+        NetworkInterfaces.Add(new InterfaceProps(adapter));
       }
     }
 
     void btnSetStatic_Click(object sender, RoutedEventArgs e)
     {
-      string args = $"interface ipv4 set address name=\"{SelectedAdapter}\" static 192.168.1.10";
-      SetIp(args);
+      //string args = $"interface ipv4 set address name=\"{SelectedAdapter}\" static 192.168.1.10";
+      //SetIp(args);
     }
 
     void btnSetDhcp_Click(object sender, RoutedEventArgs e)
     {
-      string args = $"interface ipv4 set address name=\"{SelectedAdapter}\" dhcp";
-      SetIp(args);
+      //string args = $"interface ipv4 set address name=\"{SelectedAdapter}\" dhcp";
+      //SetIp(args);
     }
 
     static void SetIp(string args)
@@ -95,8 +97,30 @@ namespace NetworkMegaConfigurator
       var scrollViewer = (ScrollViewer)sender;
       if (scrollViewer == null) return;
 
-      scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset - e.Delta);
+      scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset - e.Delta/3);
       e.Handled = true;
+    }
+
+    private void OnAdapterListRenew(object sender, MouseButtonEventArgs e)
+    {
+      GetNetworkAdapters();
+    }
+
+  }
+
+  public class InterfaceProps
+  {
+    public string Name { get; }
+    public string Description { get; }
+    public string Config { get; }
+    public NetworkInterfaceType Type { get; }
+
+    public InterfaceProps(NetworkInterface @interface)
+    {
+      Name = @interface.Name;
+      Description = @interface.Description;
+      Config = @interface.GetIPProperties().GetIPv4Properties().IsDhcpEnabled ? "DHCP" : "Static";
+      Type = @interface.NetworkInterfaceType;
     }
   }
 }

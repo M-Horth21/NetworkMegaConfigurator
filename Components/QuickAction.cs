@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NetworkMegaConfigurator
+namespace NetworkMegaConfigurator.Components
 {
   public class QuickAction : Control
   {
@@ -26,6 +26,7 @@ namespace NetworkMegaConfigurator
       {
         Description = value.Description;
         Setting = value.GetIPProperties().GetIPv4Properties().IsDhcpEnabled ? "DHCP" : "Static";
+        _adapter = value;
       }
     }
 
