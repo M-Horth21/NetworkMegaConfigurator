@@ -7,6 +7,7 @@
         xmlns:components="clr-namespace:NetworkMegaConfigurator.Components"
         xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:views="clr-namespace:NetworkMegaConfigurator.Views"
         mc:Ignorable="d"
         Name="MyMainWindow"
         Title="MainWindow" Width="600" Height="800" FontFamily="Bahnschrift" WindowStyle="None" Background="{x:Null}" AllowsTransparency="True" Foreground="{x:Null}">
@@ -24,6 +25,7 @@
         <RowDefinition Height="50"/>
       </Grid.RowDefinitions>
 
+      <!--Header-->
       <Rectangle Fill="#0A0A0A"
                  MouseDown="TopBarMouseDown"/>
       <Label Content="Network Mega-Configurator" 
@@ -38,61 +40,14 @@
               Click="btnClose_Click">
       </Button>
 
+      <!--Main content area-->
       <Grid Grid.Row="1"
                   Margin="20,20,20,20">
-        <Grid.RowDefinitions>
-          <RowDefinition Height="Auto"/>
-          <RowDefinition Height="Auto"/>
-          <RowDefinition Height="Auto"/>
-          <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        
-        <Label Content="Recent actions" HorizontalAlignment="Left" Width="400" Foreground="#7EFFFFFF" FontSize="24" VerticalContentAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0"/>
-        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled"
-                    PreviewMouseWheel="OnRecentActionMouseWheel">
-          <StackPanel x:Name="stackRecentActions" Orientation="Horizontal">
-            <components:QuickAction/>
-            <components:QuickAction/>
-            <components:QuickAction/>
-            <components:QuickAction/>
-          </StackPanel>
-        </ScrollViewer>
-
-        <Grid Grid.Row="2">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-          </Grid.ColumnDefinitions>
-
-          <Label Content="Adapters" Foreground="#7EFFFFFF" FontSize="24" 
-                     VerticalContentAlignment="Bottom"
-                     Margin="0,20,0,0"/>
-          <materialIcons:MaterialIcon 
-            Grid.Column="1"
-            Kind="Autorenew"
-            Foreground="#77FFFFFF"
-            Width="32"
-            VerticalAlignment="Bottom"
-            MouseDown="OnAdapterListRenew"/>
-        </Grid>
-        <ScrollViewer 
-Grid.Row="3" 
-HorizontalScrollBarVisibility="Disabled" 
-          VerticalScrollBarVisibility="Hidden">
-          <ItemsControl 
-            ItemsSource="{Binding NetworkInterfaces, ElementName=MyMainWindow}">
-            <ItemsControl.ItemTemplate>
-              <DataTemplate>
-                <components:AdapterButton
-                  AdapterName="{Binding Name}"
-                  AdapterDescription="{Binding Description}"
-                  AdapterConfig="{Binding Config}"/>
-              </DataTemplate>
-            </ItemsControl.ItemTemplate>
-          </ItemsControl>
-        </ScrollViewer>
+        <views:HomeView
+          DataContext="{Binding CurrentViewModel}"/>
       </Grid>
 
+      <!--Footer-->
       <Rectangle Fill="#0A0A0A" Grid.Row="2"/>
     </Grid>
   </Border>

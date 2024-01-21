@@ -4,35 +4,30 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Name="AdapterButtonControl"
              d:DesignHeight="60" d:DesignWidth="560">
   <Grid>
     <Border 
       Background="#114b9a"
-      Width="560"
       Height="60"
       CornerRadius="8"
-      Padding="25, 0, 25, 0"
-      Margin="0,12,0,0">
+      Padding="25, 0, 25, 0">
       <StackPanel
         VerticalAlignment="Center">
         <TextBlock
           FontSize="16"
-          Foreground="#CCFFFFFF"
-          Text="{Binding AdapterName, ElementName=AdapterButtonControl}">
+          Text="{Binding Name}">
         </TextBlock>
         <TextBlock
-          FontSize="12"
+          FontSize="8"
           Foreground="#7FFFFFFF"
-          Text="{Binding AdapterDescription, ElementName=AdapterButtonControl}">
+          Text="{Binding Description}">
         </TextBlock>
         <TextBlock
-          FontSize="12"
+          FontSize="8"
           Foreground="#7FFFFFFF"
-          Text="{Binding AdapterConfig, ElementName=AdapterButtonControl}">
+          Text="{Binding Configuration}">
         </TextBlock>
       </StackPanel>
-
     </Border>
   </Grid>
 </UserControl>

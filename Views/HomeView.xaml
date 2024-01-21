@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="NetworkMegaConfigurator.Views.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetworkMegaConfigurator.Views" 
+             xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+             xmlns:components="clr-namespace:NetworkMegaConfigurator.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="660" d:DesignWidth="560">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <TextBlock 
+      Text="Recent actions" 
+      FontSize="24" 
+      Margin="0,20,0,0"/>
+    <ScrollViewer 
+      Grid.Row="1"
+      HorizontalScrollBarVisibility="Hidden"
+      VerticalScrollBarVisibility="Disabled">
+      <!--PreviewMouseWheel="OnRecentActionMouseWheel"-->
+      <StackPanel x:Name="stackRecentActions" Orientation="Horizontal">
+        <components:QuickAction/>
+        <components:QuickAction/>
+        <components:QuickAction/>
+        <components:QuickAction/>
+      </StackPanel>
+    </ScrollViewer>
+
+    <TextBlock
+      Grid.Row="2"
+      Text="Adapters" 
+      FontSize="24" 
+      Margin="0,20,0,0"/>
+
+    <ScrollViewer 
+          Grid.Row="3" 
+          HorizontalScrollBarVisibility="Disabled" 
+          VerticalScrollBarVisibility="Hidden">
+      <ListView
+        Background="Transparent"
+        BorderBrush="{x:Null}"
+        ItemsSource="{Binding Adapters}"
+        HorizontalContentAlignment="Stretch">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <components:AdapterButton
+              Margin="0 0 0 10"/>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </ScrollViewer>
+  </Grid>
+</UserControl>
