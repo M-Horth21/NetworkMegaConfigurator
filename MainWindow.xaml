@@ -52,13 +52,36 @@
             <views:ConfigureAdapterView/>
           </DataTemplate>
         </Grid.Resources>
-        
+
         <ContentControl
           Content="{Binding CurrentViewModel}"/>
       </Grid>
 
       <!--Footer-->
-      <Rectangle Fill="#0A0A0A" Grid.Row="2"/>
+      <Grid
+        Grid.Row="2">
+        <Button
+          Background="#0A0A0A"
+          Command="{Binding GoToGitHub}"
+          BorderBrush="{x:Null}">
+
+          <StackPanel
+          Orientation="Horizontal"
+          HorizontalAlignment="Center">
+            <materialIcons:MaterialIcon
+          Width="40"
+          Height="40"
+          Kind="Github"
+          Foreground="#4CFFFFFF"/>
+            <TextBlock
+            VerticalAlignment="Center"
+            Text="View on GitHub"
+              Margin="8 0 0 0"
+            FontSize="12"
+            Foreground="#4CFFFFFF"/>
+          </StackPanel>
+        </Button>
+      </Grid>
     </Grid>
   </Border>
 </Window>
