@@ -32,11 +32,15 @@
              HorizontalAlignment="Left" Margin="20,0,0,0" Width="400" Foreground="#CCFFFFFF" FontSize="24" AutomationProperties.HelpText="What's this?" VerticalContentAlignment="Center"/>
       <Button x:Name="btnClose" 
               HorizontalAlignment="Right"
-              Content="{materialIcons:MaterialIconExt Kind=Close}" 
-              Background="{x:Null}" 
+              Background="Transparent" 
               Foreground="#CCFFFFFF" 
               BorderBrush="{x:Null}"
+              Width="50"
               Click="btnClose_Click">
+        <materialIcons:MaterialIcon
+          Height="30"
+          Width="30"
+          Kind="Close"/>
       </Button>
 
       <!--Main content area-->
