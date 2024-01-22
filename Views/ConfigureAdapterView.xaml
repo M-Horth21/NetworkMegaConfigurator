@@ -65,15 +65,20 @@
     </Grid>
 
     <!--Inputs-->
-    <Grid Grid.Row="2"
-          Margin="0 30 0 0">
-      <Grid.RowDefinitions>
-        <RowDefinition/>
-        <RowDefinition/>
-        <RowDefinition/>
-      </Grid.RowDefinitions>
+    <StackPanel 
+      Grid.Row="2"
+      Margin="0 30 0 0"
+      Visibility="{Binding ShowInputs, Converter={StaticResource b2vconv}}">
 
-      <TextBox Grid.Row="0"
+      <Grid>
+        <TextBlock
+        Grid.Row="0"
+        Margin="10 10 0 0"
+        Text="IP address"
+        FontSize="12"
+        Foreground="#4CFFFFFF"
+        />
+        <TextBox Grid.Row="1"
                Margin="0,0,0,10"
                Padding="10"
                Height="70"
@@ -82,10 +87,33 @@
                Background="#0AFFFFFF"
                FontSize="24"
                VerticalContentAlignment="Bottom"
-               Visibility="{Binding ShowInputs, Converter={StaticResource b2vconv}}"
                Text="{Binding IpAddress, UpdateSourceTrigger=PropertyChanged}"/>
+      </Grid>
 
-      <TextBox Grid.Row="1"
+      <StackPanel
+        Orientation="Horizontal"
+        Margin="0 0 0 10">
+        <CheckBox
+          IsChecked="{Binding ShowAdvanced}">
+        </CheckBox>
+        <TextBlock
+          Text="Advanced settings"
+          Margin="4 0 0 0"
+          FontSize="12"
+          VerticalAlignment="Center">
+        </TextBlock>
+      </StackPanel>
+
+      <Grid
+        Visibility="{Binding ShowAdvanced, Converter={StaticResource b2vconv}}">
+        <TextBlock
+        Grid.Row="0"
+        Margin="10 10 0 0"
+        Text="Subnet mask"
+        FontSize="12"
+        Foreground="#4CFFFFFF"
+        />
+        <TextBox Grid.Row="1"
                Margin="0,0,0,10"
                Padding="10"
                Height="70"
@@ -94,10 +122,20 @@
                Background="#0AFFFFFF"
                FontSize="24"
                VerticalContentAlignment="Bottom"
-               Visibility="{Binding ShowInputs, Converter={StaticResource b2vconv}}"
                Text="{Binding Mask, UpdateSourceTrigger=PropertyChanged}"/>
+      </Grid>
 
-      <TextBox Grid.Row="2"
+      <Grid
+        Visibility="{Binding ShowAdvanced, Converter={StaticResource b2vconv}}">
+        <TextBlock
+        Grid.Row="0"
+        Margin="10 10 0 0"
+        Text="Gateway"
+        FontSize="12"
+        Foreground="#4CFFFFFF"
+        />
+        <TextBox Grid.Row="1"
+               Margin="0,0,0,10"
                Padding="10"
                Height="70"
                BorderBrush="#114b9a"
@@ -105,14 +143,13 @@
                Background="#0AFFFFFF"
                FontSize="24"
                VerticalContentAlignment="Bottom"
-               Visibility="{Binding ShowInputs, Converter={StaticResource b2vconv}}"
                Text="{Binding Gateway, UpdateSourceTrigger=PropertyChanged}"/>
-
-    </Grid>
+      </Grid>
+    </StackPanel>
 
     <!--Apply button-->
     <Button Grid.Row="3"
-            Margin="0 30 0 0"
+            Margin="0 30 0 30"
             Height="60"
             Width="320"
             Content="Apply"

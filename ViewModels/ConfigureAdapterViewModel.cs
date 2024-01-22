@@ -74,7 +74,6 @@ namespace NetworkMegaConfigurator.ViewModels
     }
 
     string _gateway;
-
     public string Gateway
     {
       get
@@ -85,6 +84,17 @@ namespace NetworkMegaConfigurator.ViewModels
       {
         _gateway = value;
         OnPropertyChanged(nameof(Gateway));
+      }
+    }
+
+    bool _showAdvanced = false;
+    public bool ShowAdvanced
+    {
+      get => _showAdvanced;
+      set
+      {
+        _showAdvanced = value;
+        OnPropertyChanged(nameof(ShowAdvanced));
       }
     }
 
