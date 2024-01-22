@@ -10,7 +10,7 @@ using NetworkMegaConfigurator.Stores;
 
 namespace NetworkMegaConfigurator.ViewModels
 {
-  internal class AdapterViewModel : ViewModelBase
+  internal class AdapterViewModel : ViewModelBase, IComparable<AdapterViewModel>
   {
     readonly NetworkInterface _adapter;
     readonly NavigationStore _navigationStore;
@@ -22,6 +22,8 @@ namespace NetworkMegaConfigurator.ViewModels
         .Where(x => x.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
         .First().Address}";
     public bool DhcpEnabled => _adapter.GetIPProperties().GetIPv4Properties().IsDhcpEnabled;
+    public bool Enabled => _adapter.OperationalStatus == OperationalStatus.Up;
+    public NetworkInterfaceType Type => _adapter.NetworkInterfaceType;
 
     public ICommand AdapterSelected { get; }
 
@@ -39,6 +41,31 @@ namespace NetworkMegaConfigurator.ViewModels
         AdapterName = Name,
         DhcpEnabled = DhcpEnabled,
       };
+    }
+
+    public int CompareTo(AdapterViewModel? other)
+    {
+      if (other == null) { return -1; }
+
+      // First sort by enabled or not.
+      if (this.Enabled != other.Enabled)
+      {
+        return this.Enabled ? -1 : 1;
+      }
+
+      // Then by type.
+      if (this.Type != other.Type)
+      {
+        return this.Type switch
+        {
+          NetworkInterfaceType.Ethernet => -2,
+          NetworkInterfaceType.Wireless80211 => -1,
+          _ => 1
+        };
+      }
+
+      // Then by name.
+      return Name.CompareTo(other.Name);
     }
   }
 }

@@ -22,11 +22,11 @@ namespace NetworkMegaConfigurator.ViewModels
       _navigationStore = navigationStore;
       _adapters = new();
 
-      foreach (var item in NetworkInterface.GetAllNetworkInterfaces())
-      {
-        AdapterViewModel newAdapter = new(item, navigationStore);
-        _adapters.Add(newAdapter);
-      }
+      var foundAdapters = NetworkInterface.GetAllNetworkInterfaces()
+        .Select(x => new AdapterViewModel(x, _navigationStore))
+        .ToArray();
+
+      _adapters = new ObservableCollection<AdapterViewModel>(foundAdapters.OrderBy(x => x));
     }
   }
 }
