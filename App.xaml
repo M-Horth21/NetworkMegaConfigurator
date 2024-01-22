@@ -3,13 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <Application.Resources>
     <Style TargetType="Button">
-      <Setter Property="Background" Value="#114b9a"/>
+      <Setter Property="Background" Value="#FF114B9A"/>
       <Setter Property="Foreground" Value="#CCFFFFFF"/>
       <Setter Property="FontSize" Value="24"/>
     </Style>
 
     <Style TargetType="TextBox">
       <Setter Property="Foreground" Value="#CCFFFFFF"/>
+      <Setter Property="BorderBrush" Value="#FF114B9A"/>
+      <Setter Property="CaretBrush" Value="#FF114B9A"/>
+      <!--<Setter Property="BorderBrush" Value="#FF114B9A"/>-->
     </Style>
     <Style TargetType="TextBlock">
       <Setter Property="Foreground" Value="#CCFFFFFF"/>
