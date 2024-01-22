@@ -13,4 +13,8 @@
     <PackageReference Include="Material.Icons.WPF" Version="2.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

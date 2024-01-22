@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetworkMegaConfigurator.Stores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +9,18 @@ namespace NetworkMegaConfigurator.ViewModels
 {
   internal class MainViewModel : ViewModelBase
   {
-    public ViewModelBase CurrentViewModel { get; }
+    public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
+    readonly NavigationStore _navigationStore;
 
-    public MainViewModel()
+    public MainViewModel(NavigationStore navigationStore)
     {
-      CurrentViewModel = new HomeViewModel();
+      _navigationStore = navigationStore;
+      _navigationStore.CurrentViewModelChanged += HandleCurrentViewModelChanged;
+    }
+
+    private void HandleCurrentViewModelChanged()
+    {
+      OnPropertyChanged(nameof(CurrentViewModel));
     }
   }
 }

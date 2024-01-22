@@ -7,6 +7,9 @@
              xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
              mc:Ignorable="d" 
              d:DesignHeight="660" d:DesignWidth="560">
+  <UserControl.Resources>
+    <local:BooleanToVisibilityConverter x:Key="b2vconv"/>
+  </UserControl.Resources>
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="auto"/>
@@ -27,7 +30,8 @@
         Width="60"
         Height="60"
         Background="Transparent"
-        BorderBrush="{x:Null}">
+        BorderBrush="{x:Null}"
+        Command="{Binding Back}">
         <materialIcons:MaterialIcon
           Kind="ChevronLeft"/>
       </Button>
@@ -54,7 +58,6 @@
         Command="{Binding SetDhcp}"/>
       <Button 
         Grid.Column="1"
-        Background="#4C114B9A"
         Height="60"
         Content="Static"
         BorderBrush="{x:Null}"
@@ -79,6 +82,7 @@
                Background="#0AFFFFFF"
                FontSize="24"
                VerticalContentAlignment="Bottom"
+               Visibility="{Binding ShowInputs, Converter={StaticResource b2vconv}}"
                Text="{Binding IpAddress, UpdateSourceTrigger=PropertyChanged}"/>
 
       <TextBox Grid.Row="1"
@@ -90,6 +94,7 @@
                Background="#0AFFFFFF"
                FontSize="24"
                VerticalContentAlignment="Bottom"
+               Visibility="{Binding ShowInputs, Converter={StaticResource b2vconv}}"
                Text="{Binding Mask, UpdateSourceTrigger=PropertyChanged}"/>
 
       <TextBox Grid.Row="2"
@@ -100,6 +105,7 @@
                Background="#0AFFFFFF"
                FontSize="24"
                VerticalContentAlignment="Bottom"
+               Visibility="{Binding ShowInputs, Converter={StaticResource b2vconv}}"
                Text="{Binding Gateway, UpdateSourceTrigger=PropertyChanged}"/>
 
     </Grid>
@@ -110,6 +116,7 @@
             Height="60"
             Width="320"
             Content="Apply"
-            BorderBrush="{x:Null}"/>
+            BorderBrush="{x:Null}"
+            Command="{Binding Apply}"/>
   </Grid>
 </UserControl>

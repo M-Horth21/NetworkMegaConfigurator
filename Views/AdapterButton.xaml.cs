@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NetworkMegaConfigurator.Components
+namespace NetworkMegaConfigurator.Views
 {
   public partial class AdapterButton : UserControl
   {

@@ -1,4 +1,4 @@
-﻿using NetworkMegaConfigurator.Models;
+﻿using NetworkMegaConfigurator.Stores;
 using NetworkMegaConfigurator.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -16,11 +16,20 @@ namespace NetworkMegaConfigurator
   /// </summary>
   public partial class App : Application
   {
+    readonly NavigationStore _navigationStore;
+
+    public App()
+    {
+      _navigationStore = new();
+    }
+
     protected override void OnStartup(StartupEventArgs e)
     {
+      _navigationStore.CurrentViewModel = new HomeViewModel(_navigationStore);
+
       MainWindow = new MainWindow()
       {
-        DataContext = new MainViewModel()
+        DataContext = new MainViewModel(_navigationStore)
       };
       MainWindow.Show();
 
