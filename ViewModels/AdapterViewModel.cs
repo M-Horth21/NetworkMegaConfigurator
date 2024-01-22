@@ -12,6 +12,12 @@ namespace NetworkMegaConfigurator.ViewModels
 {
   internal class AdapterViewModel : ViewModelBase, IComparable<AdapterViewModel>
   {
+    static readonly Dictionary<NetworkInterfaceType, int> k_NetworkPriority = new()
+    {
+      [NetworkInterfaceType.Ethernet] = 1,
+      [NetworkInterfaceType.Wireless80211] = 2,
+    };
+
     readonly NetworkInterface _adapter;
     readonly NavigationStore _navigationStore;
 
@@ -24,6 +30,7 @@ namespace NetworkMegaConfigurator.ViewModels
     public bool DhcpEnabled => _adapter.GetIPProperties().GetIPv4Properties().IsDhcpEnabled;
     public bool Enabled => _adapter.OperationalStatus == OperationalStatus.Up;
     public NetworkInterfaceType Type => _adapter.NetworkInterfaceType;
+    public int Priority => k_NetworkPriority.ContainsKey(Type) ? k_NetworkPriority[Type] : int.MaxValue;
 
     public ICommand AdapterSelected { get; }
 
@@ -56,12 +63,7 @@ namespace NetworkMegaConfigurator.ViewModels
       // Then by type.
       if (this.Type != other.Type)
       {
-        return this.Type switch
-        {
-          NetworkInterfaceType.Ethernet => -2,
-          NetworkInterfaceType.Wireless80211 => -1,
-          _ => 1
-        };
+        return this.Priority - other.Priority;
       }
 
       // Then by name.
