@@ -62,7 +62,7 @@ namespace NetworkMegaConfigurator.Views
   {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-      return (bool)value ? "#7FFFFFFF" : "#FF880808";
+      return (bool)value ? "#CCFFFFFF" : "#CCE52020";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
