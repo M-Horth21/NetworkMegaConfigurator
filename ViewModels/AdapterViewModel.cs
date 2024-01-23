@@ -23,12 +23,9 @@ namespace NetworkMegaConfigurator.ViewModels
 
     public string Name => _adapter.Name;
     public string Description => _adapter.Description;
-    public string Configuration => (DhcpEnabled ? "DHCP" : $"Static") + $" - {_adapter
-        .GetIPProperties().UnicastAddresses
-        .Where(x => x.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-        .First().Address}";
+    public string Configuration => GetConfiguration();
     public bool DhcpEnabled => _adapter.GetIPProperties().GetIPv4Properties().IsDhcpEnabled;
-    public bool Enabled => _adapter.OperationalStatus == OperationalStatus.Up;
+    public bool Status => _adapter.OperationalStatus == OperationalStatus.Up;
     public NetworkInterfaceType Type => _adapter.NetworkInterfaceType;
     public int Priority => k_NetworkPriority.ContainsKey(Type) ? k_NetworkPriority[Type] : int.MaxValue;
 
@@ -50,14 +47,23 @@ namespace NetworkMegaConfigurator.ViewModels
       };
     }
 
+    string GetConfiguration()
+    {
+      if (!Status) return "Disabled";
+      if (DhcpEnabled) return "DHCP";
+      return $"Static - {_adapter.GetIPProperties().UnicastAddresses
+         .Where(x => x.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+         .First().Address}";
+    }
+
     public int CompareTo(AdapterViewModel? other)
     {
       if (other == null) { return -1; }
 
       // First sort by enabled or not.
-      if (this.Enabled != other.Enabled)
+      if (this.Status != other.Status)
       {
-        return this.Enabled ? -1 : 1;
+        return this.Status ? -1 : 1;
       }
 
       // Then by type.
