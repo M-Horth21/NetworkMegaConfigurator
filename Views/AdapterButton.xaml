@@ -9,7 +9,10 @@
              d:DesignHeight="60" d:DesignWidth="560">
   <UserControl.Resources>
     <local:StatusToIconConverter x:Key="stat2IconConv"/>
+    <local:TypeToIconConverter x:Key="type2IconConv"/>
     <local:StatusToColor x:Key="stat2ColorConv"/>
+    <local:BooleanToVisibilityConverter x:Key="b2vConv"/>
+    <local:InverseBooleanToVisibilityConverter x:Key="invB2vConv"/>
   </UserControl.Resources>
   <Grid>
     <Button 
@@ -24,7 +27,15 @@
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <materialIcons:MaterialIcon
+          Kind="{Binding Type, Converter={StaticResource type2IconConv}}"
+          Visibility="{Binding Status, Converter={StaticResource b2vConv}}"
+          Width="30"
+          Height="30"
+          Margin="0 0 10 0"
+          Foreground="{Binding Status, Converter={StaticResource stat2ColorConv}}"/>
+        <materialIcons:MaterialIcon
           Kind="{Binding Status, Converter={StaticResource stat2IconConv}}"
+          Visibility="{Binding Status, Converter={StaticResource invB2vConv}}"
           Width="30"
           Height="30"
           Margin="0 0 10 0"

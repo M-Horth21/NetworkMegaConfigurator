@@ -40,6 +40,24 @@ namespace NetworkMegaConfigurator.Views
     }
   }
 
+  public class TypeToIconConverter : IValueConverter
+  {
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      return (NetworkInterfaceType)value switch
+      {
+        NetworkInterfaceType.Ethernet => MaterialIconKind.Ethernet,
+        NetworkInterfaceType.Wireless80211 => MaterialIconKind.Wifi,
+        _ => MaterialIconKind.Connection
+      };
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      throw new NotImplementedException();
+    }
+  }
+
   public class StatusToColor : IValueConverter
   {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
