@@ -28,14 +28,6 @@
         </Grid.ColumnDefinitions>
         <materialIcons:MaterialIcon
           Kind="{Binding Type, Converter={StaticResource type2IconConv}}"
-          Visibility="{Binding Status, Converter={StaticResource b2vConv}}"
-          Width="30"
-          Height="30"
-          Margin="0 0 10 0"
-          Foreground="{Binding Status, Converter={StaticResource stat2ColorConv}}"/>
-        <materialIcons:MaterialIcon
-          Kind="{Binding Status, Converter={StaticResource stat2IconConv}}"
-          Visibility="{Binding Status, Converter={StaticResource invB2vConv}}"
           Width="30"
           Height="30"
           Margin="0 0 10 0"
