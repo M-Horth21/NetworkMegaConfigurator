@@ -28,6 +28,11 @@ namespace NetworkMegaConfigurator.ViewModels
     public bool Status => _adapter.OperationalStatus == OperationalStatus.Up;
     public NetworkInterfaceType Type => _adapter.NetworkInterfaceType;
     public int Priority => k_NetworkPriority.ContainsKey(Type) ? k_NetworkPriority[Type] : int.MaxValue;
+    public string Address => _adapter
+      .GetIPProperties().UnicastAddresses
+      .Where(x => x.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+      .First().Address
+      .ToString();
 
     public ICommand AdapterSelected { get; }
 
@@ -49,11 +54,9 @@ namespace NetworkMegaConfigurator.ViewModels
 
     string GetConfiguration()
     {
-      if (!Status) return "Disabled";
-      if (DhcpEnabled) return "DHCP";
-      return $"Static - {_adapter.GetIPProperties().UnicastAddresses
-         .Where(x => x.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-         .First().Address}";
+      if (!Status) return "Disconnected";
+      if (DhcpEnabled) return $"DHCP - {Address}";
+      return $"Static - {Address}";
     }
 
     public int CompareTo(AdapterViewModel? other)
