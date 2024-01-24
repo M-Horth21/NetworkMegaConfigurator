@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:NetworkMegaConfigurator.Views" 
+             xmlns:local="clr-namespace:NetworkMegaConfigurator.Views"
+             xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
              mc:Ignorable="d" 
              d:DesignHeight="660" d:DesignWidth="560">
   <Grid>
@@ -16,11 +17,20 @@
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
 
-    <TextBlock 
+    <StackPanel
       Grid.Row="0"
+      Orientation="Horizontal"
+      Margin="0 0 0 10">
+      <TextBlock 
       Text="Favorites" 
-      FontSize="24" 
-      Margin="0,20,0,10"/>
+      FontSize="24"
+        VerticalAlignment="Bottom"
+        Margin="0 0 8 0"/>
+      <materialIcons:MaterialIcon
+        Height="30"
+        Kind="Heart"
+        Foreground="#CCFFFFFF"/>
+    </StackPanel>
     <ScrollViewer 
       Grid.Row="1"
       HorizontalScrollBarVisibility="Hidden"
@@ -70,11 +80,20 @@
         </Button>
       </StackPanel>
     </ScrollViewer>
-    <TextBlock 
+    <StackPanel
       Grid.Row="2"
+      Orientation="Horizontal"
+      Margin="0 20 0 10">
+      <TextBlock 
       Text="Recent actions" 
-      FontSize="24" 
-      Margin="0,20,0,10"/>
+      FontSize="24"
+        VerticalAlignment="Bottom"
+        Margin="0 0 8 0"/>
+      <materialIcons:MaterialIcon
+        Height="30"
+        Kind="History"
+        Foreground="#CCFFFFFF"/>
+    </StackPanel>
     <ScrollViewer 
       Grid.Row="3"
       HorizontalScrollBarVisibility="Hidden"
@@ -129,11 +148,20 @@
       </StackPanel>
     </ScrollViewer>
 
-    <TextBlock
+    <StackPanel
       Grid.Row="4"
+      Orientation="Horizontal"
+      Margin="0 20 0 10">
+      <TextBlock 
       Text="Adapters" 
-      FontSize="24" 
-      Margin="0,20,0,10"/>
+      FontSize="24"
+        VerticalAlignment="Bottom"
+        Margin="0 0 8 0"/>
+      <materialIcons:MaterialIcon
+        Height="30"
+        Kind="LanConnect"
+        Foreground="#CCFFFFFF"/>
+    </StackPanel>
 
     <ScrollViewer 
           Grid.Row="5" 
