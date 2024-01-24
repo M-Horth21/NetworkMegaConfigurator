@@ -18,7 +18,7 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResizeWithGrip"
         MinWidth="400"
-        MinHeight="500">
+        MinHeight="700">
   
   <Border
     Background="#121212">

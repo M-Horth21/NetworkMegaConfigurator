@@ -6,6 +6,7 @@
       <Setter Property="Background" Value="#FF114B9A"/>
       <Setter Property="Foreground" Value="#CCFFFFFF"/>
       <Setter Property="FontSize" Value="24"/>
+      <Setter Property="BorderBrush" Value="{x:Null}"/>
     </Style>
 
     <Style TargetType="TextBox">
