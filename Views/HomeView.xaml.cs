@@ -24,5 +24,14 @@ namespace NetworkMegaConfigurator.Views
     {
       InitializeComponent();
     }
+
+    void OnRecentActionMouseWheel(object sender, MouseWheelEventArgs e)
+    {
+      var scrollViewer = (ScrollViewer)sender;
+      if (scrollViewer == null) return;
+
+      scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset - e.Delta / 3);
+      e.Handled = true;
+    }
   }
 }

@@ -11,19 +11,117 @@
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
 
     <TextBlock 
-      Text="Recent actions" 
+      Grid.Row="0"
+      Text="Favorites" 
       FontSize="24" 
       Margin="0,20,0,10"/>
     <ScrollViewer 
       Grid.Row="1"
       HorizontalScrollBarVisibility="Hidden"
-      VerticalScrollBarVisibility="Disabled">
-      <!--PreviewMouseWheel="OnRecentActionMouseWheel"-->
-      <StackPanel x:Name="stackRecentActions" Orientation="Horizontal">
+      VerticalScrollBarVisibility="Disabled"
+      PreviewMouseWheel="OnRecentActionMouseWheel">
+      <StackPanel
+        Orientation="Horizontal">
+        <Button
+          Height="30"
+          Padding="5 0 5 0"
+          Margin="0 0 5 0">
+          <TextBlock
+            Text="Coming soon"
+            FontSize="12"/>
+        </Button>
+        <Button
+          Height="30"
+          Padding="5 0 5 0"
+          Margin="0 0 5 0">
+          <TextBlock
+            Text="Coming soon"
+            FontSize="12"/>
+        </Button>
+        <Button
+          Height="30"
+          Padding="5 0 5 0"
+          Margin="0 0 5 0">
+          <TextBlock
+            Text="Coming soon"
+            FontSize="12"/>
+        </Button>
+        <Button
+          Height="30"
+          Padding="5 0 5 0"
+          Margin="0 0 5 0">
+          <TextBlock
+            Text="Coming soon"
+            FontSize="12"/>
+        </Button>
+        <Button
+          Height="30"
+          Padding="5 0 5 0"
+          Margin="0 0 5 0">
+          <TextBlock
+            Text="Coming soon"
+            FontSize="12"/>
+        </Button>
+      </StackPanel>
+    </ScrollViewer>
+    <TextBlock 
+      Grid.Row="2"
+      Text="Recent actions" 
+      FontSize="24" 
+      Margin="0,20,0,10"/>
+    <ScrollViewer 
+      Grid.Row="3"
+      HorizontalScrollBarVisibility="Hidden"
+      VerticalScrollBarVisibility="Disabled"
+      PreviewMouseWheel="OnRecentActionMouseWheel">
+      <StackPanel
+        Orientation="Horizontal">
+        <Button
+          Height="30"
+          Padding="5 0 5 0"
+          Margin="0 0 5 0">
+          <TextBlock
+            Text="Coming soon"
+            FontSize="12"/>
+        </Button>
+        <Button
+          Height="30"
+          Padding="5 0 5 0"
+          Margin="0 0 5 0">
+          <TextBlock
+            Text="Coming soon"
+            FontSize="12"/>
+        </Button>
+        <Button
+          Height="30"
+          Padding="5 0 5 0"
+          Margin="0 0 5 0">
+          <TextBlock
+            Text="Coming soon"
+            FontSize="12"/>
+        </Button>
+        <Button
+          Height="30"
+          Padding="5 0 5 0"
+          Margin="0 0 5 0">
+          <TextBlock
+            Text="Coming soon"
+            FontSize="12"/>
+        </Button>
+        <Button
+          Height="30"
+          Padding="5 0 5 0"
+          Margin="0 0 5 0">
+          <TextBlock
+            Text="Coming soon"
+            FontSize="12"/>
+        </Button>
         <!--<components:QuickAction/>
         <components:QuickAction/>
         <components:QuickAction/>
@@ -32,13 +130,13 @@
     </ScrollViewer>
 
     <TextBlock
-      Grid.Row="2"
+      Grid.Row="4"
       Text="Adapters" 
       FontSize="24" 
       Margin="0,20,0,10"/>
 
     <ScrollViewer 
-          Grid.Row="3" 
+          Grid.Row="5" 
           HorizontalScrollBarVisibility="Disabled" 
           VerticalScrollBarVisibility="Hidden">
       <ItemsControl
