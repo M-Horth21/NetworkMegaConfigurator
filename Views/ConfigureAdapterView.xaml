@@ -27,22 +27,28 @@
 
       <Button
         Grid.Row="0"
-        Width="60"
-        Height="60"
+        Margin="0 0 8 0"
         Background="Transparent"
         Command="{Binding Back}">
         <materialIcons:MaterialIcon
-          Kind="ChevronLeft"/>
+          Kind="ChevronLeft" RenderTransformOrigin="0.5,0.5">
+          <materialIcons:MaterialIcon.RenderTransform>
+            <TransformGroup>
+              <ScaleTransform ScaleX="2" ScaleY="2"/>
+            </TransformGroup>
+          </materialIcons:MaterialIcon.RenderTransform>
+          <!--RenderTransformOrigin="0.5,0.5"-->
+        </materialIcons:MaterialIcon>
       </Button>
       <TextBlock 
-        Text="{Binding AdapterName}"
+        Text="{Binding AdapterName, FallbackValue=Adapter name here}"
         Grid.Column="1"
         VerticalAlignment="Center"/>
     </Grid>
 
     <!--DHCP or Static buttons-->
     <Grid Grid.Row="1"
-          Margin="0 30 0 0 ">
+          Margin="0 10 0 0 ">
       <Grid.ColumnDefinitions>
         <ColumnDefinition/>
         <ColumnDefinition/>
@@ -63,7 +69,7 @@
     <!--Inputs-->
     <StackPanel 
       Grid.Row="2"
-      Margin="0 30 0 0"
+      Margin="0 20 0 0"
       Visibility="{Binding ShowInputs, Converter={StaticResource b2vconv}}">
 
       <Grid>
@@ -86,8 +92,7 @@
       </Grid>
 
       <StackPanel
-        Orientation="Horizontal"
-        Margin="0 0 0 10">
+        Orientation="Horizontal">
         <CheckBox
           IsChecked="{Binding ShowAdvanced}">
         </CheckBox>
@@ -100,6 +105,7 @@
       </StackPanel>
 
       <Grid
+        Margin="0 10 0 10"
         Visibility="{Binding ShowAdvanced, Converter={StaticResource b2vconv}}">
         <TextBlock
         Grid.Row="0"
@@ -109,7 +115,6 @@
         Foreground="#4CFFFFFF"
         />
         <TextBox Grid.Row="1"
-               Margin="0,0,0,10"
                Padding="10"
                Height="70"
                BorderThickness="2"
@@ -129,7 +134,7 @@
         Foreground="#4CFFFFFF"
         />
         <TextBox Grid.Row="1"
-               Margin="0,0,0,10"
+               Margin="0,0,0,0"
                Padding="10"
                Height="70"
                BorderThickness="2"
@@ -142,7 +147,7 @@
 
     <!--Apply button-->
     <Button Grid.Row="3"
-            Margin="0 30 0 30"
+            Margin="0 20 0 0"
             Height="60"
             Width="320"
             Content="Apply"

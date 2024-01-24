@@ -10,29 +10,28 @@
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
 
     <StackPanel
-      Grid.Row="0"
+      Grid.Row="2"
       Orientation="Horizontal"
-      Margin="0 0 0 10">
+      Margin="0 20 0 10">
       <TextBlock 
       Text="Favorites" 
       FontSize="24"
         VerticalAlignment="Bottom"
         Margin="0 0 8 0"/>
       <materialIcons:MaterialIcon
-        Height="30"
         Kind="Heart"
         Foreground="#CCFFFFFF"/>
     </StackPanel>
     <ScrollViewer 
-      Grid.Row="1"
+      Grid.Row="3"
       HorizontalScrollBarVisibility="Hidden"
       VerticalScrollBarVisibility="Disabled"
       PreviewMouseWheel="OnRecentActionMouseWheel">
@@ -81,7 +80,7 @@
       </StackPanel>
     </ScrollViewer>
     <StackPanel
-      Grid.Row="2"
+      Grid.Row="4"
       Orientation="Horizontal"
       Margin="0 20 0 10">
       <TextBlock 
@@ -90,12 +89,11 @@
         VerticalAlignment="Bottom"
         Margin="0 0 8 0"/>
       <materialIcons:MaterialIcon
-        Height="30"
         Kind="History"
         Foreground="#CCFFFFFF"/>
     </StackPanel>
     <ScrollViewer 
-      Grid.Row="3"
+      Grid.Row="5"
       HorizontalScrollBarVisibility="Hidden"
       VerticalScrollBarVisibility="Disabled"
       PreviewMouseWheel="OnRecentActionMouseWheel">
@@ -149,22 +147,21 @@
     </ScrollViewer>
 
     <StackPanel
-      Grid.Row="4"
+      Grid.Row="0"
       Orientation="Horizontal"
-      Margin="0 20 0 10">
+      Margin="0 0 0 10">
       <TextBlock 
       Text="Adapters" 
       FontSize="24"
         VerticalAlignment="Bottom"
         Margin="0 0 8 0"/>
       <materialIcons:MaterialIcon
-        Height="30"
         Kind="LanConnect"
         Foreground="#CCFFFFFF"/>
     </StackPanel>
 
     <ScrollViewer 
-          Grid.Row="5" 
+          Grid.Row="1" 
           HorizontalScrollBarVisibility="Disabled" 
           VerticalScrollBarVisibility="Hidden">
       <ItemsControl
