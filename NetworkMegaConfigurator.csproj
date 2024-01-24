@@ -7,7 +7,12 @@
     <UseWPF>true</UseWPF>
     <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Resources\Connection.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Connection.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Material.Icons.WPF" Version="2.1.0" />
