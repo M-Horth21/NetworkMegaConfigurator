@@ -5,10 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NetworkMegaConfigurator.Views"
              xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+             xmlns:converters="clr-namespace:NetworkMegaConfigurator.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="660" d:DesignWidth="560">
   <UserControl.Resources>
     <local:BooleanToVisibilityConverter x:Key="b2vconv"/>
+    <converters:SelectionButtonBooleanToColorConverter x:Key="b2colorConv"/>
   </UserControl.Resources>
   <Grid>
     <Grid.RowDefinitions>
@@ -58,11 +60,13 @@
         Grid.Column="0"
         Height="60"
         Content="DHCP"
+        Background="{Binding DhcpEnabled, Converter={StaticResource b2colorConv}}"
         Command="{Binding SetDhcp}"/>
       <Button 
         Grid.Column="1"
         Height="60"
         Content="Static"
+        Background="{Binding ShowInputs, Converter={StaticResource b2colorConv}}"
         Command="{Binding SetStatic}"/>
     </Grid>
 
