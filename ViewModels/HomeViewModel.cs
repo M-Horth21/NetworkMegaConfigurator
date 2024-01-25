@@ -15,14 +15,17 @@ namespace NetworkMegaConfigurator.ViewModels
   {
     readonly ObservableCollection<AdapterViewModel> _adapters;
     readonly NavigationStore _navigationStore;
+    private readonly ModalNavigationStore _modalNavigationStore;
+
     public ICommand Refresh { get; }
 
     public IEnumerable<AdapterViewModel> Adapters => _adapters;
 
-    public HomeViewModel(NavigationStore navigationStore)
+    public HomeViewModel(NavigationStore navigationStore, ModalNavigationStore modalNavigationStore)
     {
       Refresh = new RefreshAdaptersCommand(this);
       _navigationStore = navigationStore;
+      _modalNavigationStore = modalNavigationStore;
       _adapters = new();
 
       GetAllAdapters();
@@ -31,7 +34,7 @@ namespace NetworkMegaConfigurator.ViewModels
     public void GetAllAdapters()
     {
       var foundAdapters = NetworkInterface.GetAllNetworkInterfaces()
-        .Select(x => new AdapterViewModel(x, _navigationStore))
+        .Select(x => new AdapterViewModel(x, _navigationStore, _modalNavigationStore))
         .ToArray();
 
       Array.Sort(foundAdapters);

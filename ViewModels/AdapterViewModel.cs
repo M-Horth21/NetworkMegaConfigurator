@@ -20,6 +20,7 @@ namespace NetworkMegaConfigurator.ViewModels
 
     readonly NetworkInterface _adapter;
     readonly NavigationStore _navigationStore;
+    private readonly ModalNavigationStore _modalNavigationStore;
 
     public string Name => _adapter.Name;
     public string Description => _adapter.Description;
@@ -36,17 +37,19 @@ namespace NetworkMegaConfigurator.ViewModels
 
     public ICommand AdapterSelected { get; }
 
-    public AdapterViewModel(NetworkInterface networkInterface, NavigationStore navigationStore)
+    public AdapterViewModel(NetworkInterface networkInterface, NavigationStore navigationStore, ModalNavigationStore modalNavigationStore)
     {
       _adapter = networkInterface;
       _navigationStore = navigationStore;
+      _modalNavigationStore = modalNavigationStore;
       AdapterSelected = new NavigateCommand(_navigationStore, CreateConfigureAdapterViewModel);
     }
 
     ConfigureAdapterViewModel CreateConfigureAdapterViewModel()
     {
-      return new ConfigureAdapterViewModel(_navigationStore)
+      return new ConfigureAdapterViewModel(_navigationStore, _modalNavigationStore)
       {
+        Adapter = this._adapter,
         AdapterName = Name,
         DhcpEnabled = DhcpEnabled,
       };

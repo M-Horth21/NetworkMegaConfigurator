@@ -18,21 +18,23 @@ namespace NetworkMegaConfigurator
   public partial class App : Application
   {
     readonly NavigationStore _navigationStore;
+    readonly ModalNavigationStore _modalNavigationStore;
     readonly Forms.NotifyIcon _notifyIcon;
 
     public App()
     {
       _notifyIcon = new();
       _navigationStore = new();
+      _modalNavigationStore = new();
     }
 
     protected override void OnStartup(StartupEventArgs e)
     {
-      _navigationStore.CurrentViewModel = new HomeViewModel(_navigationStore);
+      _navigationStore.CurrentViewModel = new HomeViewModel(_navigationStore, _modalNavigationStore);
 
       MainWindow = new MainWindow()
       {
-        DataContext = new MainViewModel(_navigationStore)
+        DataContext = new MainViewModel(_navigationStore,_modalNavigationStore)
       };
       MainWindow.Show();
 

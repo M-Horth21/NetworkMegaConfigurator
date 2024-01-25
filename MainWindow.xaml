@@ -19,13 +19,11 @@
         ResizeMode="CanResizeWithGrip"
         MinWidth="400"
         MinHeight="600">
-  
+  <Window.Resources>
+    <views:BooleanToVisibilityConverter x:Key="b2vConv"/>
+  </Window.Resources>
   <Border
     Background="#121212">
-    <!--<Border.Clip>
-      <RectangleGeometry RadiusX="8" RadiusY="8"
-                         Rect="0,0,600,800"/>
-    </Border.Clip>-->
     <Grid>
       <Grid.RowDefinitions>
         <RowDefinition Height="50"/>
@@ -33,6 +31,12 @@
         <RowDefinition Height="50"/>
       </Grid.RowDefinitions>
 
+      <views:ModalView
+        Grid.Row="1"
+        Panel.ZIndex="100"
+        Visibility="{Binding ModalOpen, Converter={StaticResource b2vConv}, FallbackValue=Collapsed}">
+      </views:ModalView>
+      
       <!--Header-->
       <Rectangle Fill="#0A0A0A"
                  MouseDown="TopBarMouseDown"/>

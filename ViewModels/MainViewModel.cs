@@ -11,20 +11,34 @@ namespace NetworkMegaConfigurator.ViewModels
 {
   internal class MainViewModel : ViewModelBase
   {
-    public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
     readonly NavigationStore _navigationStore;
+    readonly ModalNavigationStore _modalNavigationStore;
+
+    public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
+    public ViewModelBase CurrentModalViewModel => _modalNavigationStore.CurrentViewModel;
+
+    public bool ModalOpen => _modalNavigationStore.IsOpen;
 
     public ICommand GoToGitHub { get; }
 
-    public MainViewModel(NavigationStore navigationStore)
+    public MainViewModel(NavigationStore navigationStore, ModalNavigationStore modalNavigationStore)
     {
       GoToGitHub = new OpenUrlCommand("https://github.com/M-Horth21/NetworkMegaConfigurator");
 
       _navigationStore = navigationStore;
+      _modalNavigationStore = modalNavigationStore;
+
       _navigationStore.CurrentViewModelChanged += HandleCurrentViewModelChanged;
+      _modalNavigationStore.CurrentViewModelChanged += OnCurrentModalViewModelChanged;
     }
 
-    private void HandleCurrentViewModelChanged()
+    void OnCurrentModalViewModelChanged()
+    {
+      OnPropertyChanged(nameof(CurrentModalViewModel));
+      OnPropertyChanged(nameof(ModalOpen));
+    }
+
+    void HandleCurrentViewModelChanged()
     {
       OnPropertyChanged(nameof(CurrentViewModel));
     }

@@ -10,11 +10,26 @@ using System.Windows.Data;
 using System.Windows;
 using System.Windows.Input;
 using System.Globalization;
+using System.Net.NetworkInformation;
 
 namespace NetworkMegaConfigurator.ViewModels
 {
   internal class ConfigureAdapterViewModel : ViewModelBase
   {
+    NetworkInterface _adapter;
+    public NetworkInterface Adapter
+    {
+      get
+      {
+        return _adapter;
+      }
+      set
+      {
+        _adapter = value;
+        OnPropertyChanged(nameof(Adapter));
+      }
+    }
+
     string _adapterName;
     public string AdapterName
     {
@@ -43,6 +58,7 @@ namespace NetworkMegaConfigurator.ViewModels
         OnPropertyChanged(nameof(ShowInputs));
       }
     }
+
     public bool ShowInputs => !DhcpEnabled;
 
     string _ipAddress;
@@ -98,17 +114,34 @@ namespace NetworkMegaConfigurator.ViewModels
       }
     }
 
+    bool _isLoading;
+
+    public bool IsLoading
+    {
+      get
+      {
+        return _isLoading;
+      }
+      set
+      {
+        _isLoading = value;
+        OnPropertyChanged(nameof(IsLoading));
+      }
+    }
+
     readonly NavigationStore _navigationStore;
+    readonly ModalNavigationStore _modalNavigationStore;
 
     public ICommand SetDhcp { get; }
     public ICommand SetStatic { get; }
     public ICommand Apply { get; }
     public ICommand Back { get; }
 
-    public ConfigureAdapterViewModel(NavigationStore navigationStore)
+    public ConfigureAdapterViewModel(NavigationStore navigationStore, ModalNavigationStore modalNavigationStore)
     {
       this._navigationStore = navigationStore;
-      Apply = new ApplyAdapterConfigurationCommand(this);
+      this._modalNavigationStore = modalNavigationStore;
+      Apply = new ApplyAdapterConfigurationCommand(this, _modalNavigationStore);
       SetDhcp = new SetDhcpCommand(this);
       SetStatic = new SetStaticCommand(this);
       Back = new NavigateCommand(_navigationStore, CreateHomeViewModel);
@@ -131,7 +164,7 @@ namespace NetworkMegaConfigurator.ViewModels
 
     HomeViewModel CreateHomeViewModel()
     {
-      return new HomeViewModel(_navigationStore);
+      return new HomeViewModel(_navigationStore, _modalNavigationStore);
     }
   }
 }
