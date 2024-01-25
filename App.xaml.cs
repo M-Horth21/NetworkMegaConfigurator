@@ -19,11 +19,11 @@ namespace NetworkMegaConfigurator
   {
     readonly NavigationStore _navigationStore;
     readonly ModalNavigationStore _modalNavigationStore;
-    readonly Forms.NotifyIcon _notifyIcon;
+    //readonly Forms.NotifyIcon _notifyIcon;
 
     public App()
     {
-      _notifyIcon = new();
+      //_notifyIcon = new();
       _navigationStore = new();
       _modalNavigationStore = new();
     }
@@ -38,10 +38,10 @@ namespace NetworkMegaConfigurator
       };
       MainWindow.Show();
 
-      _notifyIcon.Icon = new System.Drawing.Icon("Resources/icon.ico");
-      _notifyIcon.Visible = true;
-      _notifyIcon.Text = "Network Mega-Configurator";
-      _notifyIcon.Click += OnNotifyIconClicked;
+      //_notifyIcon.Icon = new System.Drawing.Icon("Resources/icon.ico");
+      //_notifyIcon.Visible = true;
+      //_notifyIcon.Text = "Network Mega-Configurator";
+      //_notifyIcon.Click += OnNotifyIconClicked;
 
       base.OnStartup(e);
     }
@@ -54,7 +54,7 @@ namespace NetworkMegaConfigurator
 
     protected override void OnExit(ExitEventArgs e)
     {
-      _notifyIcon.Dispose();
+      //_notifyIcon.Dispose();
 
       base.OnExit(e);
     }
