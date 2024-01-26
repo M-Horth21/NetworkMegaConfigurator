@@ -12,7 +12,7 @@ namespace NetworkMegaConfigurator.Converters
     {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-      return (bool)value ? "#FF1E2B3C" : "#FF114B9A";
+      return (bool)value ? "#FF114B9A" : "Transparent";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

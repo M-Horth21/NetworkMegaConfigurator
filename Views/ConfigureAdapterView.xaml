@@ -11,6 +11,28 @@
   <UserControl.Resources>
     <local:BooleanToVisibilityConverter x:Key="b2vconv"/>
     <converters:SelectionButtonBooleanToColorConverter x:Key="b2colorConv"/>
+    <Style TargetType="{x:Type Button}" x:Key="RadioButton">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Cursor" Value="Hand" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type Button}">
+            <Border Background="{TemplateBinding Background}"
+                    CornerRadius="8">
+              <ContentPresenter HorizontalAlignment="Center" 
+                               VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" 
+                          Value="True">
+                <Setter Property="Background" 
+                           Value="#0AFFFFFF"/>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
   </UserControl.Resources>
   <Grid>
     <Grid.RowDefinitions>
@@ -49,26 +71,49 @@
     </Grid>
 
     <!--DHCP or Static buttons-->
-    <Grid Grid.Row="1"
-          Margin="0 10 0 0 ">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition/>
-        <ColumnDefinition/>
-      </Grid.ColumnDefinitions>
+    <Border
+      Grid.Row="1"
+      Background="#0AFFFFFF"
+      CornerRadius="8"
+      Margin="0 10 0 0 ">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="auto"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-      <Button 
+        <Button 
         Grid.Column="0"
         Height="60"
         Content="DHCP"
-        Background="{Binding DhcpEnabled, Converter={StaticResource b2colorConv}}"
-        Command="{Binding SetDhcp}"/>
-      <Button 
-        Grid.Column="1"
+        Command="{Binding SetDhcp}"
+        Style="{StaticResource RadioButton}"/>
+        <Rectangle
+        Grid.Column="0"
+        Grid.Row="1"
+        Height="2"
+        Fill="#FF114B9A"
+        VerticalAlignment="Bottom"
+        Visibility="{Binding DhcpEnabled,Converter={StaticResource b2vconv}}"/>
+        <Button 
+        Grid.Column="2"
         Height="60"
         Content="Static"
-        Background="{Binding ShowInputs, Converter={StaticResource b2colorConv}}"
-        Command="{Binding SetStatic}"/>
-    </Grid>
+        Command="{Binding SetStatic}"
+        Style="{StaticResource RadioButton}"/>
+        <Rectangle
+        Grid.Column="2"
+        Grid.Row="1"
+        Height="2"
+        Fill="#FF114B9A"
+        VerticalAlignment="Bottom"
+        Visibility="{Binding ShowInputs, Converter={StaticResource b2vconv}}"/>
+      </Grid>
+    </Border>
 
     <!--Inputs-->
     <StackPanel 
@@ -98,14 +143,14 @@
       <StackPanel
         Orientation="Horizontal">
         <CheckBox
-          IsChecked="{Binding ShowAdvanced}">
-        </CheckBox>
-        <TextBlock
+          IsChecked="{Binding ShowAdvanced}"
+          VerticalContentAlignment="Bottom">
+          <TextBlock
           Text="Advanced settings"
           Margin="4 0 0 0"
-          FontSize="12"
-          VerticalAlignment="Center">
-        </TextBlock>
+          FontSize="12">
+          </TextBlock>
+        </CheckBox>
       </StackPanel>
 
       <Grid

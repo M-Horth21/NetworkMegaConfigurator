@@ -76,11 +76,12 @@
 
       <!--Footer-->
       <Grid
-        Grid.Row="2">
+        Grid.Row="2"
+        Background="#0A0A0A">
         <Button
-          Background="#0A0A0A"
+          Background="Transparent"
           Command="{Binding GoToGitHub}"
-          BorderBrush="{x:Null}">
+          BorderBrush="{x:Null}" HorizontalAlignment="Center">
 
           <StackPanel
           Orientation="Horizontal"
