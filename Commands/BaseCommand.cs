@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace NetworkMegaConfigurator.Commands
 {
-  internal abstract class CommandBase : ICommand
+  internal abstract class BaseCommand : ICommand
   {
     public event EventHandler? CanExecuteChanged;
 

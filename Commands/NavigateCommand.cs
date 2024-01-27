@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NetworkMegaConfigurator.Commands
 {
-  internal class NavigateCommand : CommandBase
+  internal class NavigateCommand : BaseCommand
   {
     readonly NavigationStore _navigationStore;
     private readonly Func<ViewModelBase> _createViewModel;

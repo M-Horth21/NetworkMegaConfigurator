@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NetworkMegaConfigurator.Commands
 {
-  class SetDhcpCommand : CommandBase
+  class SetDhcpCommand : BaseCommand
   {
     readonly ConfigureAdapterViewModel _configViewModel;
 

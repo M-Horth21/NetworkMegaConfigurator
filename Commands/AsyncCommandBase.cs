@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NetworkMegaConfigurator.Commands
 {
-  internal abstract class AsyncCommandBase : CommandBase
+  internal abstract class AsyncCommandBase : BaseCommand
   {
     bool _isExecuting;
 

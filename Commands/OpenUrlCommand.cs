@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NetworkMegaConfigurator.Commands
 {
-  class OpenUrlCommand : CommandBase
+  class OpenUrlCommand : BaseCommand
   {
     readonly string _url;
 

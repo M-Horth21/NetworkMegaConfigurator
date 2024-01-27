@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace NetworkMegaConfigurator.Commands
 {
-  class SetStaticCommand : CommandBase
+  class SetStaticCommand : BaseCommand
   {
     readonly ConfigureAdapterViewModel _configViewModel;
 
