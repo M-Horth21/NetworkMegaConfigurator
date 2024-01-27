@@ -70,6 +70,7 @@ namespace NetworkMegaConfigurator.Commands
         MessageBox.Show("Failed to set adapter configuration.", "Error");
       }
 
+      RecentsStore.Add(ConfigModel);
       _appliedConfigViewModel.ConfigComplete = true;
     }
   }

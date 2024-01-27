@@ -200,6 +200,7 @@
             Height="60"
             Width="320"
             Content="Apply"
-            Command="{Binding Apply}"/>
+            Command="{Binding Apply}"
+            IsDefault="True"/>
   </Grid>
 </UserControl>

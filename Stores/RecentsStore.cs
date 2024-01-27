@@ -12,37 +12,34 @@ using System.Collections.ObjectModel;
 
 namespace NetworkMegaConfigurator.Stores
 {
-  class FavoritesStore
+  class RecentsStore
   {
     public static event Action OnStoreUpdated = delegate { };
 
     const string k_folderName = "NetworkMegaConfigurator";
-    const string k_fileName = "Favorites.json";
+    const string k_fileName = "RecentActions.json";
+    const int k_capacity = 5;
 
     static string FilePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), k_folderName, k_fileName);
 
-    static List<ConfigurationModel> _configFavorites = new();
+    static List<ConfigurationModel> _configs = new();
+    public static IEnumerable<ConfigurationModel> Configs => _configs;
 
-    public static IEnumerable<ConfigurationModel> GetFavorites => _configFavorites;
-    public static bool Contains(ConfigurationModel config) => GetFavorites.Contains(config);
+    public static bool Contains(ConfigurationModel config) => Configs.Contains(config);
 
-    public static void AddFavorite(ConfigurationModel config)
+    public static void Add(ConfigurationModel config)
     {
-      if (_configFavorites.Contains(config)) return;
-      _configFavorites.Add(config);
+      _configs.Remove(config);
 
+      _configs.Insert(0, config);
+
+      if (_configs.Count > k_capacity) _configs.RemoveAt(_configs.Count - 1);
       OnStoreUpdated.Invoke();
     }
 
-    public static void RemoveFavorite(ConfigurationModel config)
+    public RecentsStore()
     {
-      _configFavorites.Remove(config);
-      OnStoreUpdated.Invoke();
-    }
-
-    public FavoritesStore()
-    {
-      _configFavorites.Clear();
+      _configs.Clear();
 
       if (!File.Exists(FilePath)) return;
 
@@ -53,12 +50,12 @@ namespace NetworkMegaConfigurator.Stores
     static void Load()
     {
       string json = File.ReadAllText(FilePath);
-      _configFavorites = JsonConvert.DeserializeObject<List<ConfigurationModel>>(json);
+      _configs = JsonConvert.DeserializeObject<List<ConfigurationModel>>(json);
     }
 
     public void Save()
     {
-      string saveJson = JsonConvert.SerializeObject(_configFavorites, Formatting.Indented);
+      string saveJson = JsonConvert.SerializeObject(_configs, Formatting.Indented);
       Directory.CreateDirectory(k_folderName);
       File.WriteAllText(FilePath, saveJson);
     }

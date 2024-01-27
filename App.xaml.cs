@@ -21,6 +21,7 @@ namespace NetworkMegaConfigurator
     readonly NavigationStore _navigationStore;
     readonly ModalNavigationStore _modalNavigationStore;
     readonly FavoritesStore _favoritesStore;
+    readonly RecentsStore _recentsStore;
     //readonly Forms.NotifyIcon _notifyIcon;
 
     public App()
@@ -29,6 +30,7 @@ namespace NetworkMegaConfigurator
       _navigationStore = new();
       _modalNavigationStore = new();
       _favoritesStore = new();
+      _recentsStore = new();
     }
 
     protected override void OnStartup(StartupEventArgs e)
@@ -59,6 +61,7 @@ namespace NetworkMegaConfigurator
     {
       //_notifyIcon.Dispose();
       _favoritesStore.Save();
+      _recentsStore.Save();
 
       base.OnExit(e);
     }

@@ -73,10 +73,11 @@ namespace NetworkMegaConfigurator.ViewModels
       {
         _ipAddress = value;
         OnPropertyChanged(nameof(IpAddress));
+        AutoSetGateway();
       }
     }
 
-    string _mask;
+    string _mask = "255.255.255.0";
     public string Mask
     {
       get
@@ -166,6 +167,20 @@ namespace NetworkMegaConfigurator.ViewModels
     HomeViewModel CreateHomeViewModel()
     {
       return new HomeViewModel(_navigationStore, _modalNavigationStore);
+    }
+
+    void AutoSetGateway()
+    {
+      if (string.IsNullOrEmpty(IpAddress)) return;
+      if (string.IsNullOrEmpty(Gateway))
+      {
+        Gateway = IpAddress;
+        return;
+      }
+
+      if (Gateway.Count(x => x == '.') >= 3) return;
+
+      Gateway = IpAddress;
     }
   }
 }

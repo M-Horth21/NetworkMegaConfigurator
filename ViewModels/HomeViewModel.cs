@@ -14,12 +14,10 @@ namespace NetworkMegaConfigurator.ViewModels
 {
   internal class HomeViewModel : ViewModelBase
   {
-    readonly ObservableCollection<AdapterViewModel> _adapters;
-    readonly ObservableCollection<QuickActionViewModel> _favorites;
     readonly NavigationStore _navigationStore;
-    private readonly ModalNavigationStore _modalNavigationStore;
+    readonly ModalNavigationStore _modalNavigationStore;
 
-    private bool _refreshing;
+    bool _refreshing;
     public bool Refreshing
     {
       get
@@ -33,12 +31,17 @@ namespace NetworkMegaConfigurator.ViewModels
       }
     }
 
-
+    readonly ObservableCollection<QuickActionViewModel> _favorites;
     public IEnumerable<QuickActionViewModel> Favorites => _favorites;
 
-    public ICommand Refresh { get; }
+    readonly ObservableCollection<QuickActionViewModel> _recents;
+    public IEnumerable<QuickActionViewModel> Recents => _recents;
 
+
+    readonly ObservableCollection<AdapterViewModel> _adapters;
     public IEnumerable<AdapterViewModel> Adapters => _adapters;
+
+    public ICommand Refresh { get; }
 
     public HomeViewModel(NavigationStore navigationStore, ModalNavigationStore modalNavigationStore)
     {
@@ -47,16 +50,47 @@ namespace NetworkMegaConfigurator.ViewModels
       _modalNavigationStore = modalNavigationStore;
       _adapters = new();
       _favorites = new();
+      _recents = new();
 
       GetAllAdapters();
-      GetAllFavorites(navigationStore, modalNavigationStore);
+      GetAllFavorites();
+      GetAllRecents();
+
+      RecentsStore.OnStoreUpdated += OnRecentsStoreUpdated;
+      FavoritesStore.OnStoreUpdated += OnFavoritesStoreUpdate;
     }
 
-    void GetAllFavorites(NavigationStore navigationStore, ModalNavigationStore modalNavigationStore)
+    ~HomeViewModel()
     {
+      RecentsStore.OnStoreUpdated -= OnRecentsStoreUpdated;
+      FavoritesStore.OnStoreUpdated -= OnFavoritesStoreUpdate;
+    }
+
+    void OnRecentsStoreUpdated()
+    {
+      GetAllRecents();
+    }
+
+    void OnFavoritesStoreUpdate()
+    {
+      GetAllFavorites();
+    }
+
+    void GetAllFavorites()
+    {
+      _favorites.Clear();
       foreach (var item in FavoritesStore.GetFavorites)
       {
-        _favorites.Add(new(item, navigationStore, modalNavigationStore));
+        _favorites.Add(new(item, _navigationStore, _modalNavigationStore));
+      }
+    }
+
+    void GetAllRecents()
+    {
+      _recents.Clear();
+      foreach (var item in RecentsStore.Configs)
+      {
+        _recents.Add(new(item, _navigationStore, _modalNavigationStore));
       }
     }
 
@@ -69,6 +103,30 @@ namespace NetworkMegaConfigurator.ViewModels
       Array.Sort(foundAdapters);
 
       _adapters.Clear();
+      foreach (var adapter in foundAdapters)
+      {
+        _adapters.Add(adapter);
+      }
+      foreach (var adapter in foundAdapters)
+      {
+        _adapters.Add(adapter);
+      }
+      foreach (var adapter in foundAdapters)
+      {
+        _adapters.Add(adapter);
+      }
+      foreach (var adapter in foundAdapters)
+      {
+        _adapters.Add(adapter);
+      }
+      foreach (var adapter in foundAdapters)
+      {
+        _adapters.Add(adapter);
+      }
+      foreach (var adapter in foundAdapters)
+      {
+        _adapters.Add(adapter);
+      }
       foreach (var adapter in foundAdapters)
       {
         _adapters.Add(adapter);

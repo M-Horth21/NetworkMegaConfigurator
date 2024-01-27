@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NetworkMegaConfigurator.Views"
              xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+             xmlns:vms="clr-namespace:NetworkMegaConfigurator.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="660" d:DesignWidth="560"
              Focusable="True"
@@ -59,7 +60,7 @@
     <ScrollViewer 
       Grid.Row="1" 
       HorizontalScrollBarVisibility="Disabled" 
-      VerticalScrollBarVisibility="Hidden"
+      VerticalScrollBarVisibility="Auto"
       Visibility="{Binding Refreshing,Converter={StaticResource invb2vConv}}">
       <ItemsControl
         Background="Transparent"
@@ -139,7 +140,7 @@
       <ItemsControl
         Background="Transparent"
         BorderBrush="{x:Null}"
-        ItemsSource="{Binding Favorites}"
+        ItemsSource="{Binding Recents}"
         HorizontalContentAlignment="Stretch">
         <ItemsControl.ItemTemplate>
           <DataTemplate>
