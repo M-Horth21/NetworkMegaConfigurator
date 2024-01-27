@@ -107,30 +107,6 @@ namespace NetworkMegaConfigurator.ViewModels
       {
         _adapters.Add(adapter);
       }
-      foreach (var adapter in foundAdapters)
-      {
-        _adapters.Add(adapter);
-      }
-      foreach (var adapter in foundAdapters)
-      {
-        _adapters.Add(adapter);
-      }
-      foreach (var adapter in foundAdapters)
-      {
-        _adapters.Add(adapter);
-      }
-      foreach (var adapter in foundAdapters)
-      {
-        _adapters.Add(adapter);
-      }
-      foreach (var adapter in foundAdapters)
-      {
-        _adapters.Add(adapter);
-      }
-      foreach (var adapter in foundAdapters)
-      {
-        _adapters.Add(adapter);
-      }
     }
   }
 }

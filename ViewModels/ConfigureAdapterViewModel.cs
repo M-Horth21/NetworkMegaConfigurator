@@ -57,6 +57,14 @@ namespace NetworkMegaConfigurator.ViewModels
         _dhcpEnabled = value;
         OnPropertyChanged(nameof(DhcpEnabled));
         OnPropertyChanged(nameof(ShowInputs));
+
+        if (_dhcpEnabled)
+        {
+          IpAddress = string.Empty;
+          Mask = string.Empty;
+          Gateway = string.Empty;
+          ShowAdvanced = false;
+        }
       }
     }
 
@@ -77,7 +85,7 @@ namespace NetworkMegaConfigurator.ViewModels
       }
     }
 
-    string _mask = "255.255.255.0";
+    string _mask;
     public string Mask
     {
       get
@@ -113,6 +121,8 @@ namespace NetworkMegaConfigurator.ViewModels
       {
         _showAdvanced = value;
         OnPropertyChanged(nameof(ShowAdvanced));
+
+        Mask = "255.255.255.0";
       }
     }
 
@@ -171,16 +181,24 @@ namespace NetworkMegaConfigurator.ViewModels
 
     void AutoSetGateway()
     {
-      if (string.IsNullOrEmpty(IpAddress)) return;
+      if (string.IsNullOrEmpty(IpAddress))
+      {
+        Gateway = string.Empty;
+        return;
+      }
       if (string.IsNullOrEmpty(Gateway))
       {
         Gateway = IpAddress;
         return;
       }
 
-      if (Gateway.Count(x => x == '.') >= 3) return;
+      if (Gateway.Count(x => x == '.') < 3)
+      {
+        Gateway = IpAddress;
+        return;
+      }
 
-      Gateway = IpAddress;
+      if (Gateway[^1] == '.') Gateway += '1';
     }
   }
 }

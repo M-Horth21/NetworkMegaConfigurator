@@ -60,7 +60,7 @@
     <ScrollViewer 
       Grid.Row="1" 
       HorizontalScrollBarVisibility="Disabled" 
-      VerticalScrollBarVisibility="Auto"
+      VerticalScrollBarVisibility="Hidden"
       Visibility="{Binding Refreshing,Converter={StaticResource invb2vConv}}">
       <ItemsControl
         Background="Transparent"
