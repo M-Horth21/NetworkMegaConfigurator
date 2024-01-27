@@ -29,6 +29,7 @@ namespace NetworkMegaConfigurator.ViewModels
     public bool Status => _adapter.OperationalStatus == OperationalStatus.Up;
     public NetworkInterfaceType Type => _adapter.NetworkInterfaceType;
     public int Priority => k_NetworkPriority.ContainsKey(Type) ? k_NetworkPriority[Type] : int.MaxValue;
+    public long Speed => _adapter.Speed / 1000000;
     public string Address => _adapter
       .GetIPProperties().UnicastAddresses
       .Where(x => x.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)

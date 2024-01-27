@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:NetworkMegaConfigurator.Views"
              xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+             xmlns:converters="clr-namespace:NetworkMegaConfigurator.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="60" d:DesignWidth="560">
   <UserControl.Resources>
@@ -13,42 +14,61 @@
     <local:StatusToColor x:Key="stat2ColorConv"/>
     <local:BooleanToVisibilityConverter x:Key="b2vConv"/>
     <local:InverseBooleanToVisibilityConverter x:Key="invB2vConv"/>
+    <converters:SpeedToIconConverter x:Key="spd2iconConv"/>
+    <converters:SpeedToColorConverter x:Key="spd2colorConv"/>
   </UserControl.Resources>
   <Grid>
     <Button 
       Height="60"
       Padding="10, 0, 10, 0"
       Command="{Binding AdapterSelected}"
-      HorizontalContentAlignment="Left">
+      HorizontalContentAlignment="Stretch">
       <Grid>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="auto"/>
           <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <materialIcons:MaterialIcon
-          Kind="{Binding Type, Converter={StaticResource type2IconConv}}"
+          Kind="{Binding Type, Converter={StaticResource type2IconConv}, FallbackValue=Connection}"
           Width="30"
           Height="30"
           Margin="0 0 10 0"
-          Foreground="{Binding Status, Converter={StaticResource stat2ColorConv}}"/>
+          Foreground="{Binding Status, Converter={StaticResource stat2ColorConv}, FallbackValue=#CCFFFFFF}"/>
         <StackPanel
           Grid.Column="1"
           VerticalAlignment="Center">
           <TextBlock
           FontSize="16"
-          Text="{Binding Name}">
+          Text="{Binding Name, FallbackValue=Name}">
           </TextBlock>
           <TextBlock
           FontSize="12"
           Foreground="#7FFFFFFF"
-          Text="{Binding Description}">
+          Text="{Binding Description, FallbackValue=Description}">
           </TextBlock>
           <TextBlock
           FontSize="12"
           Foreground="#7FFFFFFF"
-          Text="{Binding Configuration}">
+          Text="{Binding Configuration, FallbackValue=Current configuration}">
           </TextBlock>
-          </StackPanel>
+        </StackPanel>
+        <StackPanel
+          Grid.Column="2"
+          VerticalAlignment="Center">
+          
+          <materialIcons:MaterialIcon
+          Kind="{Binding Speed, Converter={StaticResource spd2iconConv},FallbackValue=Gauge}"
+          Width="30"
+          Height="30"
+          Foreground="{Binding Speed, Converter={StaticResource spd2colorConv}, FallbackValue=#CCFFFFFF}"/>
+          <TextBlock
+            Text="{Binding Speed}"
+            Margin="0 2 0 0"
+            FontSize="12"
+            Foreground="#7FFFFFFF"
+            HorizontalAlignment="Center"/>
+        </StackPanel>
       </Grid>
     </Button>
   </Grid>
