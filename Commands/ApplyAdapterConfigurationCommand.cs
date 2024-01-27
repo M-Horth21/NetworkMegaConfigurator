@@ -15,7 +15,8 @@ namespace NetworkMegaConfigurator.Commands
   internal class ApplyAdapterConfigurationCommand : AsyncCommandBase
   {
     readonly ConfigureAdapterViewModel _configViewModel;
-    private readonly ModalNavigationStore _modalNavigationStore;
+    readonly ModalNavigationStore _modalNavigationStore;
+    AppliedConfigViewModel _appliedConfigViewModel;
 
     string Name => _configViewModel.AdapterName;
     string IpAddress => _configViewModel.IpAddress;
@@ -31,8 +32,8 @@ namespace NetworkMegaConfigurator.Commands
 
     public override async Task ExecuteAsync(object? parameter)
     {
-      _configViewModel.IsLoading = true;
-      _modalNavigationStore.CurrentViewModel = new ViewModelBase();
+      _appliedConfigViewModel = new AppliedConfigViewModel(_configViewModel, _modalNavigationStore);
+      _modalNavigationStore.CurrentViewModel = _appliedConfigViewModel;
 
       string args;
       if (Dhcp)
@@ -51,17 +52,15 @@ namespace NetworkMegaConfigurator.Commands
         process.StartInfo.CreateNoWindow = true;
         process.Start();
 
-        process.WaitForExit();
-
         await Task.Delay(1000);
+        process.WaitForExit();
       }
       catch (Exception)
       {
         MessageBox.Show("Failed to set adapter configuration.", "Error");
       }
 
-      _configViewModel.IsLoading = false;
-      _modalNavigationStore.CurrentViewModel = null;
+      _appliedConfigViewModel.ConfigComplete = true;
     }
   }
 }
