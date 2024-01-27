@@ -6,7 +6,18 @@
              xmlns:local="clr-namespace:NetworkMegaConfigurator.Views"
              xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
              mc:Ignorable="d" 
-             d:DesignHeight="660" d:DesignWidth="560">
+             d:DesignHeight="660" d:DesignWidth="560"
+             Focusable="True"
+             Loaded="OnLoad">
+  
+  <UserControl.Resources>
+    <local:InverseBooleanToVisibilityConverter x:Key="invb2vConv"/>
+    <BooleanToVisibilityConverter x:Key="b2vConv"/>
+  </UserControl.Resources>
+  <UserControl.InputBindings>
+    <KeyBinding Command="{Binding Refresh}" Key="F5"/>
+  </UserControl.InputBindings>
+
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
@@ -48,7 +59,8 @@
     <ScrollViewer 
       Grid.Row="1" 
       HorizontalScrollBarVisibility="Disabled" 
-      VerticalScrollBarVisibility="Hidden">
+      VerticalScrollBarVisibility="Hidden"
+      Visibility="{Binding Refreshing,Converter={StaticResource invb2vConv}}">
       <ItemsControl
         Background="Transparent"
         BorderBrush="{x:Null}"
@@ -62,6 +74,13 @@
         </ItemsControl.ItemTemplate>
       </ItemsControl>
     </ScrollViewer>
+    <TextBlock
+      Grid.Row="1"
+      Text="Updating..."
+      VerticalAlignment="Top"
+      Margin="0 25 0 0"
+      HorizontalAlignment="Center"
+      Visibility="{Binding Refreshing, Converter={StaticResource b2vConv}}"/>
     <StackPanel
       Grid.Row="2"
       Orientation="Horizontal"

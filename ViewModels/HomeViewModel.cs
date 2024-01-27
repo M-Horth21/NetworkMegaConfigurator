@@ -17,6 +17,22 @@ namespace NetworkMegaConfigurator.ViewModels
     readonly NavigationStore _navigationStore;
     private readonly ModalNavigationStore _modalNavigationStore;
 
+    private bool _refreshing;
+
+    public bool Refreshing
+    {
+      get
+      {
+        return _refreshing;
+      }
+      set
+      {
+        _refreshing = value;
+        OnPropertyChanged(nameof(Refreshing));
+      }
+    }
+
+
     public ICommand Refresh { get; }
 
     public IEnumerable<AdapterViewModel> Adapters => _adapters;

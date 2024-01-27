@@ -1,4 +1,5 @@
-﻿using NetworkMegaConfigurator.ViewModels;
+﻿using NetworkMegaConfigurator.Stores;
+using NetworkMegaConfigurator.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NetworkMegaConfigurator.Commands
 {
-  internal class RefreshAdaptersCommand : CommandBase
+  internal class RefreshAdaptersCommand : AsyncCommandBase
   {
     readonly HomeViewModel _homeViewModel;
 
@@ -16,9 +17,15 @@ namespace NetworkMegaConfigurator.Commands
     {
       _homeViewModel = homeViewModel;
     }
-    public override void Execute(object? parameter)
+
+    public override async Task ExecuteAsync(object parameter)
     {
+      _homeViewModel.Refreshing = true;
+
       _homeViewModel.GetAllAdapters();
+
+      await Task.Delay(500);
+      _homeViewModel.Refreshing = false;
     }
   }
 }

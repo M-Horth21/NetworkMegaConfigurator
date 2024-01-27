@@ -33,5 +33,10 @@ namespace NetworkMegaConfigurator.Views
       scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset - e.Delta / 3);
       e.Handled = true;
     }
+
+    private void OnLoad(object sender, RoutedEventArgs e)
+    {
+      this.Focus();
+    }
   }
 }
