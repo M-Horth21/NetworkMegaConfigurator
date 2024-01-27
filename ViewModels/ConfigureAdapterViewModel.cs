@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Globalization;
 using System.Net.NetworkInformation;
+using NetworkMegaConfigurator.Models;
 
 namespace NetworkMegaConfigurator.ViewModels
 {
@@ -139,8 +140,8 @@ namespace NetworkMegaConfigurator.ViewModels
 
     public ConfigureAdapterViewModel(NavigationStore navigationStore, ModalNavigationStore modalNavigationStore)
     {
-      this._navigationStore = navigationStore;
-      this._modalNavigationStore = modalNavigationStore;
+      _navigationStore = navigationStore;
+      _modalNavigationStore = modalNavigationStore;
       Apply = new ApplyAdapterConfigurationCommand(this, _modalNavigationStore);
       SetDhcp = new SetDhcpCommand(this);
       SetStatic = new SetStaticCommand(this);

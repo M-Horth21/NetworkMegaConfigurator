@@ -11,27 +11,19 @@ namespace NetworkMegaConfigurator.Commands
 {
   class ToggleFavoriteCommand : BaseCommand
   {
-    private readonly ConfigureAdapterViewModel _configureAdapterViewModel;
+    private readonly ConfigurationModel _configModel;
 
-    public ToggleFavoriteCommand(ConfigureAdapterViewModel configureAdapterViewModel)
+    public ToggleFavoriteCommand(ConfigurationModel configModel)
     {
-      _configureAdapterViewModel = configureAdapterViewModel;
+      _configModel = configModel;
     }
+
     public override void Execute(object? parameter)
     {
       bool favorite = (bool)parameter;
 
-      ConfigurationModel config = new()
-      {
-        AdapterName = _configureAdapterViewModel.AdapterName,
-        IpAddress = _configureAdapterViewModel.IpAddress,
-        SubnetMask = _configureAdapterViewModel.Mask,
-        Gateway = _configureAdapterViewModel.Gateway,
-        Dhcp = _configureAdapterViewModel.DhcpEnabled
-      };
-
-      if (favorite) FavoritesStore.AddFavorite(config);
-      else FavoritesStore.RemoveFavorite(config);
+      if (favorite) FavoritesStore.AddFavorite(_configModel);
+      else FavoritesStore.RemoveFavorite(_configModel);
     }
   }
 }

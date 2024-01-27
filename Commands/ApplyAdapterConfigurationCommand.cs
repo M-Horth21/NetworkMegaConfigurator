@@ -1,4 +1,5 @@
-﻿using NetworkMegaConfigurator.Stores;
+﻿using NetworkMegaConfigurator.Models;
+using NetworkMegaConfigurator.Stores;
 using NetworkMegaConfigurator.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -14,25 +15,34 @@ namespace NetworkMegaConfigurator.Commands
 {
   internal class ApplyAdapterConfigurationCommand : AsyncCommandBase
   {
-    readonly ConfigureAdapterViewModel _configViewModel;
     readonly ModalNavigationStore _modalNavigationStore;
+    readonly ConfigureAdapterViewModel _configurationViewModel;
     AppliedConfigViewModel _appliedConfigViewModel;
 
-    string Name => _configViewModel.AdapterName;
-    string IpAddress => _configViewModel.IpAddress;
-    string Mask => _configViewModel.Mask;
-    string Gateway => _configViewModel.Gateway;
-    bool Dhcp => _configViewModel.DhcpEnabled;
+    string Name => _configurationViewModel.AdapterName;
+    string IpAddress => _configurationViewModel.IpAddress;
+    string Mask => _configurationViewModel.Mask;
+    string Gateway => _configurationViewModel.Gateway;
+    bool Dhcp => _configurationViewModel.DhcpEnabled;
 
-    public ApplyAdapterConfigurationCommand(ConfigureAdapterViewModel configureAdapterViewModel, ModalNavigationStore modalNavigationStore)
+    ConfigurationModel ConfigModel => new()
     {
-      _configViewModel = configureAdapterViewModel;
+      AdapterName = Name,
+      Dhcp = Dhcp,
+      IpAddress = IpAddress,
+      SubnetMask = Mask,
+      Gateway = Gateway
+    };
+
+    public ApplyAdapterConfigurationCommand(ConfigureAdapterViewModel configurationViewModel, ModalNavigationStore modalNavigationStore)
+    {
+      _configurationViewModel = configurationViewModel;
       _modalNavigationStore = modalNavigationStore;
     }
 
     public override async Task ExecuteAsync(object? parameter)
     {
-      _appliedConfigViewModel = new AppliedConfigViewModel(_configViewModel, _modalNavigationStore);
+      _appliedConfigViewModel = new AppliedConfigViewModel(ConfigModel, _modalNavigationStore);
       _modalNavigationStore.CurrentViewModel = _appliedConfigViewModel;
 
       string args;

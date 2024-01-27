@@ -1,4 +1,5 @@
 ﻿using NetworkMegaConfigurator.Commands;
+using NetworkMegaConfigurator.Models;
 using NetworkMegaConfigurator.Stores;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace NetworkMegaConfigurator.ViewModels
 {
   class AppliedConfigViewModel : ViewModelBase
   {
-    readonly ConfigureAdapterViewModel _configViewModel;
+    readonly ConfigurationModel _configModel;
     readonly ModalNavigationStore _modalNavigationStore;
 
     string _caption = "";
@@ -91,7 +92,6 @@ namespace NetworkMegaConfigurator.ViewModels
       "Thanks fam",
       "Bet",
       "No cap",
-      "That's bussin",
       "That hits different",
       "Dank",
     };
@@ -99,13 +99,15 @@ namespace NetworkMegaConfigurator.ViewModels
     public ICommand ToggleFavorite { get; }
     public ICommand CloseModal { get; }
 
-    public AppliedConfigViewModel(ConfigureAdapterViewModel configViewModel, ModalNavigationStore modalNavigationStore)
+    public AppliedConfigViewModel(ConfigurationModel configModel, ModalNavigationStore modalNavigationStore)
     {
-      _configViewModel = configViewModel;
+      _configModel = configModel;
       _modalNavigationStore = modalNavigationStore;
-      ToggleFavorite = new ToggleFavoriteCommand(configViewModel);
+      ToggleFavorite = new ToggleFavoriteCommand(configModel);
       CloseModal = new CloseModalCommand(_modalNavigationStore);
-      Caption = $"Configuring {_configViewModel.AdapterName}...";
+
+      Caption = $"Configuring {_configModel.AdapterName}...";
+      Favorite = FavoritesStore.Contains(_configModel);
 
       var random = new Random();
       ButtonCaption = _buttonCaptions[random.Next(_buttonCaptions.Count)];

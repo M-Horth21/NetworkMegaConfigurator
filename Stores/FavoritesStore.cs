@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Configuration.Internal;
 using System.Windows.Media.Media3D;
+using System.Collections.ObjectModel;
 
 namespace NetworkMegaConfigurator.Stores
 {
@@ -21,7 +22,8 @@ namespace NetworkMegaConfigurator.Stores
     static List<ConfigurationModel> _configFavorites = new();
 
     public static IEnumerable<ConfigurationModel> GetFavorites => _configFavorites;
-
+    public static bool Contains(ConfigurationModel config) => GetFavorites.Contains(config);
+    
     public static void AddFavorite(ConfigurationModel config)
     {
       if (_configFavorites.Contains(config)) return;

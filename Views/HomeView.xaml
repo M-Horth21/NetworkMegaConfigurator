@@ -99,49 +99,24 @@
       HorizontalScrollBarVisibility="Hidden"
       VerticalScrollBarVisibility="Disabled"
       PreviewMouseWheel="OnRecentActionMouseWheel">
-      <StackPanel
-        Orientation="Horizontal">
-        <Button
-          Height="30"
-          Padding="5 0 5 0"
-          Margin="0 0 5 0">
-          <TextBlock
-            Text="Coming soon"
-            FontSize="12"/>
-        </Button>
-        <Button
-          Height="30"
-          Padding="5 0 5 0"
-          Margin="0 0 5 0">
-          <TextBlock
-            Text="Coming soon"
-            FontSize="12"/>
-        </Button>
-        <Button
-          Height="30"
-          Padding="5 0 5 0"
-          Margin="0 0 5 0">
-          <TextBlock
-            Text="Coming soon"
-            FontSize="12"/>
-        </Button>
-        <Button
-          Height="30"
-          Padding="5 0 5 0"
-          Margin="0 0 5 0">
-          <TextBlock
-            Text="Coming soon"
-            FontSize="12"/>
-        </Button>
-        <Button
-          Height="30"
-          Padding="5 0 5 0"
-          Margin="0 0 5 0">
-          <TextBlock
-            Text="Coming soon"
-            FontSize="12"/>
-        </Button>
-      </StackPanel>
+      <ItemsControl
+        Background="Transparent"
+        BorderBrush="{x:Null}"
+        ItemsSource="{Binding Favorites}"
+        HorizontalContentAlignment="Stretch">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <local:QuickActionView
+              Margin="0 0 0 10"/>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <StackPanel
+              Orientation="Horizontal"/>
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+      </ItemsControl>
     </ScrollViewer>
     <StackPanel
       Grid.Row="4"
@@ -161,53 +136,24 @@
       HorizontalScrollBarVisibility="Hidden"
       VerticalScrollBarVisibility="Disabled"
       PreviewMouseWheel="OnRecentActionMouseWheel">
-      <StackPanel
-        Orientation="Horizontal">
-        <Button
-          Height="30"
-          Padding="5 0 5 0"
-          Margin="0 0 5 0">
-          <TextBlock
-            Text="Coming soon"
-            FontSize="12"/>
-        </Button>
-        <Button
-          Height="30"
-          Padding="5 0 5 0"
-          Margin="0 0 5 0">
-          <TextBlock
-            Text="Coming soon"
-            FontSize="12"/>
-        </Button>
-        <Button
-          Height="30"
-          Padding="5 0 5 0"
-          Margin="0 0 5 0">
-          <TextBlock
-            Text="Coming soon"
-            FontSize="12"/>
-        </Button>
-        <Button
-          Height="30"
-          Padding="5 0 5 0"
-          Margin="0 0 5 0">
-          <TextBlock
-            Text="Coming soon"
-            FontSize="12"/>
-        </Button>
-        <Button
-          Height="30"
-          Padding="5 0 5 0"
-          Margin="0 0 5 0">
-          <TextBlock
-            Text="Coming soon"
-            FontSize="12"/>
-        </Button>
-        <!--<components:QuickAction/>
-        <components:QuickAction/>
-        <components:QuickAction/>
-        <components:QuickAction/>-->
-      </StackPanel>
+      <ItemsControl
+        Background="Transparent"
+        BorderBrush="{x:Null}"
+        ItemsSource="{Binding Favorites}"
+        HorizontalContentAlignment="Stretch">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <local:QuickActionView
+              Margin="0 0 0 10"/>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <StackPanel
+              Orientation="Horizontal"/>
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+      </ItemsControl>
     </ScrollViewer>
 
 

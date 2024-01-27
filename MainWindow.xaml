@@ -9,7 +9,7 @@
         xmlns:vms="clr-namespace:NetworkMegaConfigurator.ViewModels"
         mc:Ignorable="d"
         Width="400" 
-        Height="600" 
+        Height="700" 
         FontFamily="Bahnschrift" 
         WindowStyle="None" 
         Background="{x:Null}" 

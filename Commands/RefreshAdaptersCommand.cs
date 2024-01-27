@@ -24,7 +24,7 @@ namespace NetworkMegaConfigurator.Commands
 
       _homeViewModel.GetAllAdapters();
 
-      await Task.Delay(500);
+      await Task.Delay(200);
       _homeViewModel.Refreshing = false;
     }
   }
