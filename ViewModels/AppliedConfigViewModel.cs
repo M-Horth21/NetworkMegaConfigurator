@@ -28,6 +28,20 @@ namespace NetworkMegaConfigurator.ViewModels
       }
     }
 
+    string _buttonCaption = "";
+    public string ButtonCaption
+    {
+      get
+      {
+        return _buttonCaption;
+      }
+      set
+      {
+        _buttonCaption = value;
+        OnPropertyChanged(nameof(ButtonCaption));
+      }
+    }
+
     bool _favorite;
     public bool Favorite
     {
@@ -72,17 +86,29 @@ namespace NetworkMegaConfigurator.ViewModels
       }
     }
 
+    static List<string> _buttonCaptions = new()
+    {
+      "Thanks fam",
+      "Bet",
+      "No cap",
+      "That's bussin",
+      "That hits different",
+      "Dank",
+    };
 
-    public ICommand SaveToFavorites { get; }
+    public ICommand ToggleFavorite { get; }
     public ICommand CloseModal { get; }
 
     public AppliedConfigViewModel(ConfigureAdapterViewModel configViewModel, ModalNavigationStore modalNavigationStore)
     {
       _configViewModel = configViewModel;
       _modalNavigationStore = modalNavigationStore;
-      SaveToFavorites = new SaveConfigToFavoritesCommand();
+      ToggleFavorite = new ToggleFavoriteCommand(configViewModel);
       CloseModal = new CloseModalCommand(_modalNavigationStore);
       Caption = $"Configuring {_configViewModel.AdapterName}...";
+
+      var random = new Random();
+      ButtonCaption = _buttonCaptions[random.Next(_buttonCaptions.Count)];
 
       Task.Run(WaitForConfigApplied);
     }

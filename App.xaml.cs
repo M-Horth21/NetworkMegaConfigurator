@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace NetworkMegaConfigurator
   {
     readonly NavigationStore _navigationStore;
     readonly ModalNavigationStore _modalNavigationStore;
+    readonly FavoritesStore _favoritesStore;
     //readonly Forms.NotifyIcon _notifyIcon;
 
     public App()
@@ -26,6 +28,7 @@ namespace NetworkMegaConfigurator
       //_notifyIcon = new();
       _navigationStore = new();
       _modalNavigationStore = new();
+      _favoritesStore = new();
     }
 
     protected override void OnStartup(StartupEventArgs e)
@@ -55,6 +58,7 @@ namespace NetworkMegaConfigurator
     protected override void OnExit(ExitEventArgs e)
     {
       //_notifyIcon.Dispose();
+      _favoritesStore.Save();
 
       base.OnExit(e);
     }

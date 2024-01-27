@@ -29,8 +29,10 @@
       Grid.Row="1" HorizontalAlignment="Center"
       Visibility="{Binding ReadyToClose, Converter={StaticResource b2vConv}}">
       <CheckBox
-          IsChecked="{Binding Favorite}"
-          VerticalContentAlignment="Bottom">
+        IsChecked="{Binding Favorite}"
+        VerticalContentAlignment="Bottom"
+        Command="{Binding ToggleFavorite}"
+        CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}">
         <TextBlock
           Text="Save to favorites"
           Margin="4 0 0 0"
@@ -42,7 +44,7 @@
         Width="320"
         Margin="0 10 0 0"
         Command="{Binding CloseModal}"
-        Content="Thanks fam"/>
+        Content="{Binding ButtonCaption}"/>
     </StackPanel>
   </Grid>
 </UserControl>
