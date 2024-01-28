@@ -20,7 +20,8 @@ namespace NetworkMegaConfigurator.Stores
     const string k_fileName = "RecentActions.json";
     const int k_capacity = 5;
 
-    static string FilePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), k_folderName, k_fileName);
+    static string FilePath => Path.Combine(FolderPath, k_fileName);
+    static string FolderPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), k_folderName);
 
     static List<ConfigurationModel> _configs = new();
     public static IEnumerable<ConfigurationModel> Configs => _configs;
@@ -56,7 +57,7 @@ namespace NetworkMegaConfigurator.Stores
     public void Save()
     {
       string saveJson = JsonConvert.SerializeObject(_configs, Formatting.Indented);
-      Directory.CreateDirectory(k_folderName);
+      Directory.CreateDirectory(FolderPath);
       File.WriteAllText(FilePath, saveJson);
     }
   }
